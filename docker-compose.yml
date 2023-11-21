@@ -1,0 +1,36 @@
+version: "3.9"
+services:
+  postgresserver:
+    image: postgres:13.3
+    container_name: postgresserver
+    environment:
+      POSTGRES_DB: "testdb"
+      POSTGRES_USER: "testuser"
+      POSTGRES_PASSWORD: "testuserpass"
+      PGDATA: /var/lib/postgresql/data/some_name/
+    networks:
+      - mynetwork
+    ports:
+      - "5432:5432"
+    volumes:
+       - pgdata:/var/lib/postgresql/data
+  webapp:
+    image: vnikitin08/webapp:latest
+    environment:
+      POSTGRES_CONNECTION_STRING: "User ID=testuser;Password=testuserpass;Host=postgresserver;Port=5432;Database=testdb;Pooling=true;"
+    ports:
+      - "80:80"
+    working_dir: /app
+    links:
+       - postgresserver
+    depends_on:
+       - "postgresserver"
+    networks:
+       - mynetwork
+
+volumes:
+  pgdata:
+
+networks:
+  mynetwork:
+     driver: bridge

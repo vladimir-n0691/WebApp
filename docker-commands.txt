@@ -1,0 +1,34 @@
+docker login docker.com
+
+docker build -t store:dev . 
+
+docker build -t vnikitin08/store:latest .
+
+docker tag 85309fc9a6fe vnikitin08/store:latest
+
+docker push vnikitin08/store:latest
+
+docker run -it -p 80:80 vnikitin08/store:latest
+
+docker tag 8bd86dc0237151c4a9dae4afef29f5b39269000a3694196f5a37f66c15f60e5e vnikitin08/webapp:latest
+
+docker push vnikitin08/8bd86dc0237151c4a9dae4afef29f5b39269000a3694196f5a37f66c15f60e5e
+
+docker pull vnikitin08/webapp:latest
+
+docker  run -w /app -it -p 80:80 vnikitin08/webapp:1.0
+
+----------------------------------------------------------------------
+
+docker build -t vnikitin08/webapp:latest .
+docker push vnikitin08/webapp:latest
+
+docker pull vnikitin08/webapp:latest
+docker run -w /app -it -p 80:80 vnikitin08/webapp:latest
+docker run -e POSTGRES_DB=DB_USER_value23 -e POSTGRES_PASSWORD=POSTGRES_PASSWORD_value23 -e POSTGRES_USER=DB_PASS_value23 -w /app -it -p 80:80 vnikitin08/webapp:latest
+
+docker ps
+docker stop $(docker ps -a -q)
+
+docker-compose build
+docker-compose up

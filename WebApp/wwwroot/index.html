@@ -1,0 +1,45 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>WebApp</title>
+</head>
+<body>
+    <h1>Main Page</h1>
+    <script type="text/javascript">
+        async function testAuthApiClick() {
+            const token = sessionStorage.getItem("accessToken");
+
+            const response = await fetch("/api/test/GetAuthTestData", {
+                method: "GET",
+                headers: {
+                    Accept: "application/json",
+                    Authorization: "Bearer " + token, // передача токена в заголовке
+                },
+            });
+            if (response.ok === true) {
+                const data = await response.json();
+                alert(data);
+            } else {
+                console.log("Status: ", response.status);
+                alert("Error, status: " + response.status);
+            }
+        }
+    </script>
+    <div style={{ margin: "10px" }}>
+        <h4 style={{ margin: "10px" }}>General</h4>
+        <div style={{ margin: "10px" }}>
+            <a href="login.html">Login</a>
+        </div>
+        <div style={{ margin: "10px" }}>
+            <a href="register.html">Register</a>
+        </div>
+
+        <div style={{ margin: "10px" }}>
+            <a href="api/test/gettestdata">Test API</a>
+        </div>
+
+        <button onClick="testAuthApiClick();">Test auth api</button>
+    </div>
+</body>
+</html>
