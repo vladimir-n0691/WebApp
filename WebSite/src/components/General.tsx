@@ -25,10 +25,10 @@ export const General = () => {
     <div style={{ margin: "10px" }}>
       <h4 style={{ margin: "10px" }}>General</h4>
       <div style={{ margin: "10px" }}>
-        <a href="login">Login</a>
+        <a href="signin">Login</a>
       </div>
       <div style={{ margin: "10px" }}>
-        <a href="register">Register</a>
+        <a href="signup">Register</a>
       </div>
       <div style={{ margin: "10px" }}>
         <a href="main">Main</a>

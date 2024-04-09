@@ -3,6 +3,8 @@ import { General } from "./General";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Login } from "./Login";
 import { Register } from "./Register";
+import SignIn from "./SignIn";
+import SignUp from "./SignUp";
 
 export const App = () => {
   /*const dispath = useDispatch();
@@ -21,9 +23,9 @@ export const App = () => {
     <BrowserRouter>
       <Routes>
         <Route path="" element={<General />} />
-        <Route path="/login" element={<Login />} />
         <Route path="/main" element={<Main />} />
-        <Route path="/register" element={<Register />} />
+        <Route path="/signin" element={<SignIn />} />
+        <Route path="/signup" element={<SignUp />} />
       </Routes>
     </BrowserRouter>
   );
