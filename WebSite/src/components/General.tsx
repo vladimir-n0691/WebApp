@@ -1,4 +1,5 @@
 import React from "react";
+import { API_URL } from "../common/Constants";
 
 export const General = () => {
   async function testAuthApiClick() {
@@ -34,7 +35,7 @@ export const General = () => {
       </div>
 
       <div style={{ margin: "10px" }}>
-        <a href="api/test/gettestdata">Test API</a>
+        <a href={`${API_URL}/api/test/gettestdata`}>Test API</a>
       </div>
 
       <button onClick={testAuthApiClick}>Test auth api</button>
