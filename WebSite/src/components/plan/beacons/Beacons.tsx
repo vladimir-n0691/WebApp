@@ -1,22 +1,12 @@
 import React, { useEffect, useLayoutEffect, useState } from "react";
-import { API_URL } from "../../../common/Constants";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemAvatar from "@mui/material/ListItemAvatar";
-import Avatar from "@mui/material/Avatar";
-import ListItemText from "@mui/material/ListItemText";
-import ImageIcon from '@mui/icons-material/Image';
-import WorkIcon from '@mui/icons-material/Work';
-import BeachAccessIcon from '@mui/icons-material/BeachAccess';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
-import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import IconButton from "@mui/material/IconButton";
-import { ArrowForward, Bluetooth, Edit, PinDrop } from "@mui/icons-material";
+import { Bluetooth, Edit, PinDrop } from "@mui/icons-material";
 import { selectCurrentPosition, setOnGetCoordsClickCallback } from "./fp";
 import DotRing from "./DotRing";
 
