@@ -1,12 +1,13 @@
-import { Main } from "./Main";
-import { General } from "./General";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { Login } from "./Login";
-import { Register } from "./Register";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import SignIn from "./SignIn";
 import SignUp from "./SignUp";
+import { ACCESS_TOKEN_KEY } from "../common/Constants";
+import Main from "./Main";
 
 export const App = () => {
+
+  console.log("Rendering App")
+
   /*const dispath = useDispatch();
 
   const data = useSelector((state: AppState) => state.common.data);
@@ -17,15 +18,18 @@ export const App = () => {
     console.log("Data was changed: " + data);
   }, [data]);*/
 
-  const Home = () => <p>Home Content</p>;
+  const Page404 = () => <p>404 Not found</p>;
+  const isLoggedIn: boolean = localStorage.getItem(ACCESS_TOKEN_KEY) != null;
+
+  console.log("isLoggedIn: " + isLoggedIn);
 
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="" element={<General />} />
-        <Route path="/main" element={<Main />} />
         <Route path="/signin" element={<SignIn />} />
         <Route path="/signup" element={<SignUp />} />
+        <Route path='/*' element={isLoggedIn ? <Main/> : <Navigate to='/signin'/>} />
+        <Route path='*' element={<Page404/>} />
       </Routes>
     </BrowserRouter>
   );

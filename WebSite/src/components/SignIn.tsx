@@ -12,13 +12,14 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { ACCESS_TOKEN_KEY } from '../common/Constants';
 
 function Copyright(props: any) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
       {'Copyright © '}
       <Link color="inherit" href="https://mui.com/">
-        Your Website
+        Website
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -30,13 +31,37 @@ function Copyright(props: any) {
 const defaultTheme = createTheme();
 
 export default function SignIn() {
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+
+  console.log("Rendering SignIn")
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
+    let login = data.get('email')?.toString()
+    let password = data.get('password')?.toString()
+
+    console.log("login: " + login);
+    console.log("password: " + password);
+
+    //TODO return
+    /*const response = await fetch(`/api/auth/login?user=${login}&password=${password}`, {
+      method: "GET",
+      headers: { Accept: "application/json" },
     });
+    if(response.status == 200 && response.ok === true){
+      const responseData = await response.json();
+      localStorage.setItem(ACCESS_TOKEN_KEY, responseData.access_token);
+      console.log(responseData.access_token);
+      window.location.href = '/';
+    }
+    else {
+      alert("Error")
+    }*/
+
+    //TODO remove
+    localStorage.setItem(ACCESS_TOKEN_KEY, "123");
+    window.location.href = '/';
+
   };
 
   return (
@@ -97,7 +122,7 @@ export default function SignIn() {
                 </Link>
               </Grid>
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link href="/signup" variant="body2">
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>
