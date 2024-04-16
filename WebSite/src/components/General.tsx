@@ -1,5 +1,5 @@
 import React from "react";
-import { API_URL } from "../common/Constants";
+import { API_URL } from "../common/constants";
 
 export const General = () => {
   async function testAuthApiClick() {

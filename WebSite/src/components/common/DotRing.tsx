@@ -1,5 +1,5 @@
 import { PinDrop } from "@mui/icons-material";
-import useMousePosition from "../../../hooks/useMousePosition";
+import useMousePosition from "../../hooks/useMousePosition";
 
 const DotRing = () => {
   const { x, y } = useMousePosition();

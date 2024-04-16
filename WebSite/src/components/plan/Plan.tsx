@@ -4,12 +4,13 @@ import Tab from '@mui/material/Tab';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import LayersIcon from '@mui/icons-material/Layers';
-import { Place } from '@mui/icons-material';
+import { Place, QrCode } from '@mui/icons-material';
 import Container from '@mui/material/Container';
 import PlansTable from '../PlansTable';
 import { useEffect, useLayoutEffect } from 'react';
 import { Beacons } from './beacons/Beacons';
 import Dashboard from './dashboard/Dashboard';
+import { QrCodes } from './qrCodes/QrCodes';
 
 export default function Plan() {
     const [value, setValue] = React.useState(0);
@@ -28,6 +29,7 @@ export default function Plan() {
             >
                 <Tab icon={<DashboardIcon />} iconPosition="start" label="Dashboard" />
                 <Tab icon={<Place />} iconPosition="start" label="Beacons" />
+                <Tab icon={<QrCode />} iconPosition="start" label="QR codes" />
                 <Tab icon={<BarChartIcon />} iconPosition="start" label="Reports" />
                 <Tab icon={<LayersIcon />} iconPosition="start" label="Integrations" />
             </Tabs>
@@ -38,6 +40,12 @@ export default function Plan() {
                             return <Dashboard />
                         case 1:
                             return <Beacons />
+                        case 2:
+                            return <QrCodes />
+                        case 3:
+                            return <div>Comming soon</div>
+                        case 4:
+                            return <div>Comming soon</div>
                         default:
                             return null
                     }

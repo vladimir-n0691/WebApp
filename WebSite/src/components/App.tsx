@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import SignIn from "./SignIn";
 import SignUp from "./SignUp";
-import { ACCESS_TOKEN_KEY } from "../common/Constants";
+import { ACCESS_TOKEN_KEY } from "../common/constants";
 import Main from "./Main";
 
 export const App = () => {

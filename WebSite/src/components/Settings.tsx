@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppState, setData } from "../store";
-import { ACCESS_TOKEN_KEY } from "../common/Constants";
+import { ACCESS_TOKEN_KEY } from "../common/constants";
 
 export const Settings = () => {
   console.log("Rendering Main")

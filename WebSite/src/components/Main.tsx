@@ -21,7 +21,7 @@ import Button from '@mui/material/Button';
 import Plan from './plan/Plan';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import { Settings as SettingsView } from './Settings';
-import { ACCESS_TOKEN_KEY } from '../common/Constants';
+import { ACCESS_TOKEN_KEY } from '../common/constants';
 
 const drawerWidth: number = 240;
 
@@ -153,7 +153,7 @@ export default function Main() {
                 Settings
               </Typography>} />
             </Routes>
-            <IconButton color="inherit" onClick={() => {localStorage.removeItem(ACCESS_TOKEN_KEY); navigate("/signin");}}>
+            <IconButton color="inherit" onClick={() => { localStorage.removeItem(ACCESS_TOKEN_KEY); navigate("/signin"); }}>
               <Logout />
             </IconButton>
           </Toolbar>
@@ -195,6 +195,7 @@ export default function Main() {
 
           <Routes>
             <Route path="/" element={<>
+              {/*
               <Toolbar
                 sx={{
                   display: 'flex',
@@ -206,7 +207,7 @@ export default function Main() {
                   Add plan
                 </Button>
               </Toolbar>
-
+              */}
               <Container maxWidth={false} sx={{ mt: 1, mb: 1, flexGrow: 1 }}>
                 <PlansTable />
               </Container>
