@@ -2,15 +2,46 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppState, setData } from "../store";
 import { ACCESS_TOKEN_KEY } from "../common/constants";
+import Grid from '@mui/material/Grid';
+import TextField from '@mui/material/TextField';
+import Paper from "@mui/material/Paper";
+import Container from "@mui/material/Container";
+import Typography from "@mui/material/Typography";
+import UsersApi from "../api/UsersApi";
+import Button from "@mui/material/Button";
+import { Save } from "@mui/icons-material";
 
 export const Settings = () => {
-  console.log("Rendering Main")
+  console.log("Rendering Settings")
+
+  const [firstName, setFirstName] = React.useState("");
+  const [lastName, setlastName] = React.useState("");
+  const [company, setCompany] = React.useState("");
+  const [email, setEmail] = React.useState("");
+  const [pass, setPass] = React.useState("");
 
   const dispath = useDispatch();
 
   const data = useSelector((state: AppState) => state.common.data);
   const [lData, setLData] = useState(data);
   const setDataFunc = () => dispath(setData(lData));
+
+  useEffect(() => {
+    const token = localStorage.getItem(ACCESS_TOKEN_KEY);
+    if (!!token) {
+      UsersApi.getUser(token).then(u => {
+        if (u != null) {
+          setFirstName(u.firstName)
+          setlastName(u.lastName)
+          setCompany(u.company)
+          setEmail(u.email)
+          setPass(u.password)
+        }
+      })
+    }
+
+  }, []);
+
 
   useEffect(() => {
     console.log("Data was changed: " + data);
@@ -20,15 +51,86 @@ export const Settings = () => {
   console.log(localStorage.getItem(ACCESS_TOKEN_KEY))
 
   return (
-    <div style={{ margin: "10px" }}>
-      <div style={{ marginTop: "10px" }}>Main Page</div>
-      <div style={{ marginTop: "10px" }}>APP state: {data}</div>
-      <div>--------------------------------------------</div>
-      <div style={{ marginTop: "10px" }}>
-      </div>
-      <div style={{ marginTop: "20px" }}>
-       
-      </div>
-    </div>
+    <Container maxWidth={false} sx={{ mt: 1, mb: 1, flexGrow: 1 }}>
+      <Paper
+        sx={{
+          p: 2,
+          display: 'flex',
+          flexDirection: 'column',
+          margin: 10
+
+        }}
+      >
+        <Typography component="p" variant="h5" style={{ marginBottom: "40px" }}>
+          User settings
+        </Typography>
+
+        <Grid container spacing={2}>
+          <Grid item xs={12} sm={6}>
+            <TextField
+              autoComplete="given-name"
+              name="firstName"
+              required
+              fullWidth
+              id="firstName"
+              label="First Name"
+              value={firstName}
+              autoFocus
+            />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <TextField
+              required
+              fullWidth
+              id="lastName"
+              label="Last Name"
+              name="lastName"
+              autoComplete="family-name"
+              value={lastName}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              required
+              fullWidth
+              id="email"
+              label="Email Address"
+              name="email"
+              autoComplete="email"
+              value={email}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              required
+              fullWidth
+              id="company"
+              label="Company"
+              name="company"
+              autoComplete="company"
+              value={company}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              required
+              fullWidth
+              name="password"
+              label="Password"
+              type="password"
+              id="password"
+              autoComplete="new-password"
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <Button variant="outlined" startIcon={<Save />} onClick={() => {
+
+            }}>
+              Save
+            </Button>
+          </Grid>
+        </Grid>
+      </Paper>
+    </Container>
   );
 };

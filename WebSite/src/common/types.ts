@@ -1,7 +1,7 @@
 export interface Plan {
     id: number;
     name: string;
-    description: string | undefined | null;
+    description: string | null;
     url: string;
 }
 
@@ -15,5 +15,14 @@ export interface Beacon {
 
     x: number,
     y: number,
-    z: string | undefined
+    z: string | null
+}
+
+export interface User {
+    id: number;
+    firstName: string;
+    lastName: string;
+    email: string;
+    company: string;
+    password: string,
 }

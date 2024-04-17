@@ -11,15 +11,17 @@ import { selectCurrentPosition, setOnGetCoordsClickCallback } from "../../common
 import DotRing from "../../common/DotRing";
 import { Beacon } from "../../../common/types";
 import BeaconsApi from "../../../api/BeaconsApi";
+import EditBeaconDialog from "./EditBeaconDialog";
 
 export const Beacons = () => {
     const [showCursor, setShowCursor] = useState(false);
-    const [beacons, setBeacons]= React.useState<Beacon[]>([]);
-  
+    const [beacons, setBeacons] = React.useState<Beacon[]>([]);
+    const [editBeacon, setEditBeacon] = React.useState<Beacon | null>(null);
+
     useEffect(() => {
-        BeaconsApi.getPlans().then((p)=> setBeacons(p))
+        BeaconsApi.getPlans().then((p) => setBeacons(p))
     }, []);
-  
+
     useLayoutEffect(() => {
         const script = document.createElement('script');
         const script1 = document.createElement('script');
@@ -45,7 +47,8 @@ export const Beacons = () => {
 
     return (
         <div style={{ display: 'flex', flexDirection: 'row', height: "100%" }}>
-            { showCursor && <DotRing /> }
+            {editBeacon && <EditBeaconDialog beacon={editBeacon} handleSave={b => { setEditBeacon(null); }} handleClose={() => setEditBeacon(null)} />}
+            {showCursor && <DotRing />}
             <div style={{ display: 'flex', height: "100%", width: 440, marginRight: -1, border: "1px solid rgba(0, 0, 0, 0.12)" }} >
                 <TableContainer>
                     <Table stickyHeader aria-label="sticky table">
@@ -77,13 +80,14 @@ export const Beacons = () => {
                                                     edge="start"
                                                     color="inherit"
                                                     aria-label="open drawer"
-                                                    onClick={() => { 
-                                                        setShowCursor(true); 
-                                                        setOnGetCoordsClickCallback((e:any) => {
-                                                            setShowCursor(false); 
+                                                    onClick={() => {
+                                                        setShowCursor(true);
+                                                        setOnGetCoordsClickCallback((e: any) => {
+                                                            setShowCursor(false);
                                                             setOnGetCoordsClickCallback(null)
-                                                            selectCurrentPosition(e.x, e.y-2, e.z)
-                                                        }) 
+                                                            selectCurrentPosition(e.x, e.y - 2, e.z)
+                                                            setEditBeacon({...row, x: e.x, y: e.y - 2, z: e.z })
+                                                        })
                                                     }}
                                                 >
                                                     <PinDrop />
@@ -94,7 +98,7 @@ export const Beacons = () => {
                                                     edge="start"
                                                     color="inherit"
                                                     aria-label="open drawer"
-                                                //onClick={() => navigate( `/plans/${row.id}`)}
+                                                    onClick={() => setEditBeacon(row)}
                                                 >
                                                     <Edit />
                                                 </IconButton>

@@ -13,6 +13,8 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { ACCESS_TOKEN_KEY } from '../common/constants';
+import UsersApi from '../api/UsersApi';
+import { useNavigate } from 'react-router-dom';
 
 function Copyright(props: any) {
   return (
@@ -34,34 +36,27 @@ export default function SignIn() {
 
   console.log("Rendering SignIn")
 
+  const navigate = useNavigate();
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    let login = data.get('email')?.toString()
+    let email = data.get('email')?.toString()
     let password = data.get('password')?.toString()
 
-    console.log("login: " + login);
-    console.log("password: " + password);
+    console.log("login: " + email)
+    console.log("password: " + password)
 
-    //TODO return
-    /*const response = await fetch(`/api/auth/login?user=${login}&password=${password}`, {
-      method: "GET",
-      headers: { Accept: "application/json" },
-    });
-    if(response.status == 200 && response.ok === true){
-      const responseData = await response.json();
-      localStorage.setItem(ACCESS_TOKEN_KEY, responseData.access_token);
-      console.log(responseData.access_token);
-      window.location.href = '/';
-    }
-    else {
-      alert("Error")
-    }*/
-
-    //TODO remove
-    localStorage.setItem(ACCESS_TOKEN_KEY, "123");
-    window.location.href = '/';
-
+    UsersApi.login(email!, password!).then(t => {
+      if (t != null && t.length > 0) {
+        localStorage.setItem(ACCESS_TOKEN_KEY,t);
+        window.location.href = '/';
+        //navigate(`/`)
+      }
+      else{
+        window.alert("Email or password is incorrect")
+      }
+    })
   };
 
   return (

@@ -12,6 +12,8 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import UsersApi from '../api/UsersApi';
+import { useNavigate } from 'react-router-dom';
 
 function Copyright(props: any) {
   return (
@@ -32,13 +34,23 @@ const defaultTheme = createTheme();
 export default function SignUp() {
   console.log("Rendering SignUp")
 
+  const navigate = useNavigate();
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+
+    let firstName = data.get('firstName')?.toString() ?? ""
+    let lastName = data.get('lastName')?.toString() ?? ""
+    let company = data.get('company')?.toString() ?? ""
+
+    let email = data.get('email')?.toString() ?? ""
+    let password = data.get('password')?.toString() ?? ""
+
+    UsersApi.createUser({ id: 0, firstName: firstName, lastName: lastName, company: company, email: email, password: password }).then(r => {
+      navigate(`/signin`)
+    })
+
   };
 
   return (
@@ -90,6 +102,16 @@ export default function SignUp() {
                   label="Email Address"
                   name="email"
                   autoComplete="email"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  id="company"
+                  label="Company"
+                  name="company"
+                  autoComplete="company"
                 />
               </Grid>
               <Grid item xs={12}>

@@ -11,7 +11,7 @@ import TextField from '@mui/material/TextField';
 import { Plan } from '../../common/types';
 
 export interface EditPlanDialogProps {
-    plan: Plan | undefined | null
+    plan: Plan
     handleSave: (plan: Plan) => void
     handleClose: () => void
 }
@@ -20,7 +20,7 @@ export default function EditPlanDialog(props: EditPlanDialogProps) {
     const theme = useTheme();
     const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
 
-    const [name, setName] = React.useState(props.plan ? props.plan.name : "NaN");
+    const [name, setName] = React.useState(props.plan ? props.plan.name : "");
     const [url, setUrl] = React.useState(props.plan ? props.plan.url : "");
     const [description, setDescription] = React.useState(props.plan ? props.plan.description : "");
 
