@@ -33,7 +33,7 @@ export default function Plan() {
                 <Tab icon={<BarChartIcon />} iconPosition="start" label="Reports" />
                 <Tab icon={<LayersIcon />} iconPosition="start" label="Integrations" />
             </Tabs>
-            <Container maxWidth={false} style={{ paddingLeft: 18, overflow: "hidden" }} sx={{ mt: 1, mb: 1 }}>
+            <Container maxWidth={false} style={{ paddingLeft: 18, overflow: "hidden", height: "100%" }} sx={{ mt: 1, mb: 1 }}>
                 {(() => {
                     switch (value) {
                         case 0:
@@ -43,9 +43,9 @@ export default function Plan() {
                         case 2:
                             return <QrCodes />
                         case 3:
-                            return <div>Comming soon</div>
+                            return <div>Comming soon...</div>
                         case 4:
-                            return <div>Comming soon</div>
+                            return <div>Comming soon...</div>
                         default:
                             return null
                     }

@@ -57,16 +57,16 @@ export const Settings = () => {
           p: 2,
           display: 'flex',
           flexDirection: 'column',
-          margin: 10
-
+          margin: 'auto',
+          width: "600px"
         }}
       >
-        <Typography component="p" variant="h5" style={{ marginBottom: "40px" }}>
+        <Typography component="p" variant="h5" style={{ marginBottom: "30px" }}>
           User settings
         </Typography>
 
         <Grid container spacing={2}>
-          <Grid item xs={12} sm={6}>
+          <Grid item xs={12}>
             <TextField
               autoComplete="given-name"
               name="firstName"
@@ -78,7 +78,7 @@ export const Settings = () => {
               autoFocus
             />
           </Grid>
-          <Grid item xs={12} sm={6}>
+          <Grid item xs={12}>
             <TextField
               required
               fullWidth
