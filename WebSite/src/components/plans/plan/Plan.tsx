@@ -6,13 +6,21 @@ import BarChartIcon from '@mui/icons-material/BarChart';
 import LayersIcon from '@mui/icons-material/Layers';
 import { Place, QrCode } from '@mui/icons-material';
 import Container from '@mui/material/Container';
-import PlansTable from '../PlansTable';
 import { useEffect, useLayoutEffect } from 'react';
 import { Beacons } from './beacons/Beacons';
 import Dashboard from './dashboard/Dashboard';
 import { QrCodes } from './qrCodes/QrCodes';
+import { Plan as PlanType } from '../../../common/types';
+import { Integration } from './Integration';
 
-export default function Plan() {
+export interface PlanProps {
+    plan: PlanType
+}
+
+export default function Plan(props: PlanProps) {
+    console.log("Rendering Plan");
+    console.log(props.plan);
+
     const [value, setValue] = React.useState(0);
 
     const handleChange = (event: React.SyntheticEvent, newValue: number) => {
@@ -39,13 +47,13 @@ export default function Plan() {
                         case 0:
                             return <Dashboard />
                         case 1:
-                            return <Beacons />
+                            return <Beacons plan={props.plan} />
                         case 2:
-                            return <QrCodes />
+                            return <QrCodes plan={props.plan} />
                         case 3:
                             return <div>Comming soon...</div>
                         case 4:
-                            return <div>Comming soon...</div>
+                            return <Integration plan={props.plan} />
                         default:
                             return null
                     }

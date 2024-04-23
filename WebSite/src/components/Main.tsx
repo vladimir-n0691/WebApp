@@ -16,12 +16,15 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import { Add, Home, Logout, Settings } from '@mui/icons-material';
-import PlansTable from './PlansTable';
+import PlansTable from './plans/PlansTable';
 import Button from '@mui/material/Button';
-import Plan from './plan/Plan';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import { Settings as SettingsView } from './Settings';
 import { ACCESS_TOKEN_KEY } from '../common/constants';
+import Plan from './plans/plan/Plan';
+import { AppState } from '../store';
+import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
 
 const drawerWidth: number = 240;
 
@@ -73,26 +76,37 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
   }),
 );
 
-// TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 
 export default function Main() {
   const navigate = useNavigate();
 
+  const plan = useSelector((state: AppState) => state.common.plan);
+
   const [open, setOpen] = React.useState(true);
-  const toggleDrawer = () => {
-    setOpen(!open);
-  };
+
+  useEffect(() => {
+    console.log("Plan was changed: " + plan)
+  }, [plan]);
+
+  const toggleDrawer = () => setOpen(!open)
+
+  const handleLogoutClick = () => {
+    localStorage.removeItem(ACCESS_TOKEN_KEY);
+    navigate("/signin")
+  }
+  const handleHomeClick = () => navigate("/")
+  const handleSettingsClick = () => navigate("/settings")
 
   const mainListItems = (
     <React.Fragment>
-      <ListItemButton onClick={() => navigate("/")}>
+      <ListItemButton onClick={handleHomeClick}>
         <ListItemIcon>
           <Home />
         </ListItemIcon>
         <ListItemText primary="Home" />
       </ListItemButton>
-      <ListItemButton onClick={() => navigate("/settings")}>
+      <ListItemButton onClick={handleSettingsClick}>
         <ListItemIcon>
           <Settings />
         </ListItemIcon>
@@ -141,7 +155,7 @@ export default function Main() {
                 noWrap
                 sx={{ flexGrow: 1 }}
               >
-                Plan
+                {plan?.name}
               </Typography>} />
               <Route path="/settings" element={<Typography
                 component="h1"
@@ -153,7 +167,7 @@ export default function Main() {
                 Settings
               </Typography>} />
             </Routes>
-            <IconButton color="inherit" onClick={() => { localStorage.removeItem(ACCESS_TOKEN_KEY); navigate("/signin"); }}>
+            <IconButton color="inherit" onClick={handleLogoutClick}>
               <Logout />
             </IconButton>
           </Toolbar>
@@ -195,24 +209,11 @@ export default function Main() {
 
           <Routes>
             <Route path="/" element={<>
-              {/*
-              <Toolbar
-                sx={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  mt: 1
-                }}
-              >
-                <Button variant="outlined" startIcon={<Add />}>
-                  Add plan
-                </Button>
-              </Toolbar>
-              */}
               <Container maxWidth={false} sx={{ mt: 1, mb: 1, flexGrow: 1 }}>
                 <PlansTable />
               </Container>
             </>} />
-            <Route path="/plans/:number" element={<Plan />} />
+            <Route path="/plans/:number" element={plan && <Plan plan={plan} />} />
             <Route path="/settings" element={<SettingsView />} />
           </Routes>
         </Box>

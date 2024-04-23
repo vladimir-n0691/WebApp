@@ -10,36 +10,60 @@ import TableRow from '@mui/material/TableRow';
 import IconButton from '@mui/material/IconButton';
 import { Add, ArrowForward, Delete, Edit } from '@mui/icons-material';
 import { Link, useNavigate } from 'react-router-dom';
-import { Plan } from '../common/types';
+import { Plan } from '../../common/types';
 import { useEffect } from 'react';
-import PlansApi from '../api/PlansApi';
-import EditPlanDialog from './plan/EditPlanDialog';
+import PlansApi from '../../api/PlansApi';
+import EditPlanDialog from './EditPlanDialog';
 import Button from '@mui/material/Button';
 import Toolbar from '@mui/material/Toolbar';
+import { useDispatch } from 'react-redux';
+import { setPlan } from '../../store';
 
 
 export default function PlansTable() {
-  const [editPlan, setEditPlan] = React.useState<Plan | null>(null);
+  const dispath = useDispatch();
+  const navigate = useNavigate();
 
   const [page, setPage] = React.useState(0);
   const [plans, setPlans] = React.useState<Plan[]>([]);
-
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const [editPlan, setEditPlan] = React.useState<Plan | null>(null);
 
   useEffect(() => {
     PlansApi.getPlans().then((p) => setPlans(p))
   }, []);
 
-  const navigate = useNavigate();
+  const setPlanFunc = (plan: Plan | null) => dispath(setPlan(plan));
 
-  const handleChangePage = (event: unknown, newPage: number) => {
-    setPage(newPage);
-  };
-
+  const handleChangePage = (event: unknown, newPage: number) => setPage(newPage);
   const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
+
+  const handleAddPlan = () => {
+    setEditPlan({ id: -1, name: "", url: "", description: "" })
+  }
+
+  const handleDeletePlan = async (p: Plan) => {
+    if (window.confirm(`Delete plan ${p.name}?`)) {
+      await PlansApi.deletePlan(p.id)
+      await PlansApi.getPlans().then((p) => setPlans(p))
+    }
+  }
+
+  const handleOpenPlan = (p: Plan) => { 
+    setPlanFunc(p); 
+    navigate(`/plans/${p.id}`); 
+  }
+
+  const handleSavePlan = async (p: Plan) => {
+    setEditPlan(null);
+    await PlansApi.editPlan(p)
+    await PlansApi.getPlans().then((p) => setPlans(p))
+  }
+
+  const handleClosePlan = () => setEditPlan(null)
 
   return (
     <>
@@ -51,9 +75,7 @@ export default function PlansTable() {
           mt: 1
         }}
       >
-        <Button variant="outlined" startIcon={<Add />} onClick={() => {
-          setEditPlan({id: -1, name: "", url: "", description: ""})
-        }}>
+        <Button variant="outlined" startIcon={<Add />} onClick={handleAddPlan}>
           Add plan
         </Button>
       </Toolbar>
@@ -86,12 +108,7 @@ export default function PlansTable() {
                           edge="start"
                           color="inherit"
                           aria-label="open drawer"
-                          onClick={async () => {
-                            if (window.confirm(`Delete plan ${row.name}?`)) {
-                              await PlansApi.deletePlan(row.id)
-                              await PlansApi.getPlans().then((p) => setPlans(p))
-                            }
-                          }}
+                          onClick={() => handleDeletePlan(row)}
                         >
                           <Delete />
                         </IconButton>
@@ -111,7 +128,7 @@ export default function PlansTable() {
                           edge="start"
                           color="inherit"
                           aria-label="open drawer"
-                          onClick={() => navigate(`/plans/${row.id}`)}
+                          onClick={() => handleOpenPlan(row)}
                         >
                           <ArrowForward />
                         </IconButton>
@@ -132,11 +149,7 @@ export default function PlansTable() {
           onRowsPerPageChange={handleChangeRowsPerPage}
         />
 
-        {editPlan && <EditPlanDialog plan={editPlan} handleSave={async (p) => {
-          setEditPlan(null);
-          await PlansApi.editPlan(p)
-          await PlansApi.getPlans().then((p) => setPlans(p))
-        }} handleClose={() => setEditPlan(null)} />}
+        {editPlan && <EditPlanDialog plan={editPlan} handleSave={handleSavePlan} handleClose={handleClosePlan} />}
       </Paper>
     </>
   );

@@ -5,3 +5,9 @@ export function selectCurrentPosition(x, y, z, focus) {
 export function setOnGetCoordsClickCallback(callback) {
     window.floorplan.onGetCoordsClick = callback;
 }
+
+export function destroyFloorplan(){
+    if(window.floorplan?.unstable_destroy != null){
+        window.floorplan.unstable_destroy();
+    }
+}

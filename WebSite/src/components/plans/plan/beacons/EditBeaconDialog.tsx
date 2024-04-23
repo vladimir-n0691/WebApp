@@ -8,7 +8,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 import TextField from '@mui/material/TextField';
-import { Beacon } from '../../../common/types';
+import { Beacon } from '../../../../common/types';
 
 export interface EditBeaconDialogProps {
     beacon: Beacon

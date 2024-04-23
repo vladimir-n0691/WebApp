@@ -18,6 +18,20 @@ export interface Beacon {
     z: string | null
 }
 
+export interface QrCode {
+    id: number;
+    name: string;
+    description: string;
+
+    url: string;
+    imageBase64: string
+
+    x: number,
+    y: number,
+    z: string | null
+}
+
+
 export interface User {
     id: number;
     firstName: string;

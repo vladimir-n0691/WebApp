@@ -14,7 +14,7 @@ export default class BeaconsApi {
         { id: 10, name: "Beacon_10", description: "1", uuid: "e6f3421a-5179-4f8b-b317-343ab537713b", major: 1, minor: 101, x: 44652, y: 14722, z: "2" },
     ]
 
-    public static async getBeacons(): Promise<Beacon[]> {
+    public static async getBeacons(planId: number): Promise<Beacon[]> {
         return BeaconsApi.beacons
     }
 

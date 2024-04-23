@@ -3,10 +3,9 @@ import { Plan } from "../common/types";
 export default class PlansApi {
 
     private static  plans: Plan[] = [
-        { id: 1, name: "111", description: "SSAFa1111111111", url: "https://demo.expofp.com/" },
+        { id: 1, name: "111", description: "SSAFa1111111111", url: "https://money2020.expofp.com/" },
         { id: 2, name: "222", description: "SSAFa22222222222222222", url: "https://plan863.expofp.com/" },
-        { id: 3, name: "333", description: "SSAFa333333333333333333", url: "https://demo.expofp.com/" },
-        { id: 7, name: "4444", description: "SSAFa44444444444444444444", url: "https://demo.expofp.com/" }
+        { id: 3, name: "333", description: "SSAFa333333333333333333", url: "https://jetlag-2023.expofp.com/" },
       ];
 
 

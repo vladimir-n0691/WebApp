@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { AppState, setData } from "../store";
 import { ACCESS_TOKEN_KEY } from "../common/constants";
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
@@ -20,12 +18,6 @@ export const Settings = () => {
   const [email, setEmail] = React.useState("");
   const [pass, setPass] = React.useState("");
 
-  const dispath = useDispatch();
-
-  const data = useSelector((state: AppState) => state.common.data);
-  const [lData, setLData] = useState(data);
-  const setDataFunc = () => dispath(setData(lData));
-
   useEffect(() => {
     const token = localStorage.getItem(ACCESS_TOKEN_KEY);
     if (!!token) {
@@ -41,12 +33,6 @@ export const Settings = () => {
     }
 
   }, []);
-
-
-  useEffect(() => {
-    console.log("Data was changed: " + data);
-  }, [data]);
-
 
   console.log(localStorage.getItem(ACCESS_TOKEN_KEY))
 
