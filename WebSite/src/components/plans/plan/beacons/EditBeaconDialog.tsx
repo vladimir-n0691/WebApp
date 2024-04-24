@@ -39,7 +39,7 @@ export default function EditBeaconDialog(props: EditBeaconDialogProps) {
                     required
                     margin="dense"
                     id="name"
-                    name="email"
+                    name="name"
                     label="Name"
                     type="text"
                     fullWidth

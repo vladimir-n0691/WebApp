@@ -10,6 +10,10 @@ import TextField from '@mui/material/TextField';
 import { Plan, QrCode } from '../../../../common/types';
 import QrCodesApi from '../../../../api/QrCodesApi';
 import Helper from '../../../../common/Helper';
+import Link from '@mui/material/Link';
+import QRCode from 'qrcode.react';
+import { Download } from '@mui/icons-material';
+import { downloadQrCode } from '../../../common/functions';
 
 export interface EditQrCodeDialogProps {
     plan: Plan
@@ -25,7 +29,7 @@ export default function EditQrCodeDialog(props: EditQrCodeDialogProps) {
     const [qrCode, setQrCode] = React.useState(props.qrCode);
 
     const getUrl = (x: number, y: number, z: string | null) => Helper.getBlueDotUrl(props.plan.url, x, y, z)
-    
+
     return (
         <Dialog
             id={props.qrCode?.id.toString()}
@@ -35,7 +39,7 @@ export default function EditQrCodeDialog(props: EditQrCodeDialogProps) {
             aria-labelledby="responsive-dialog-title"
         >
             <DialogTitle id="responsive-dialog-title">
-                {`Edit QR code ${props.qrCode?.name}`}
+                {`'You are here' QR code`}
             </DialogTitle>
             <DialogContent>
                 <TextField
@@ -43,7 +47,7 @@ export default function EditQrCodeDialog(props: EditQrCodeDialogProps) {
                     required
                     margin="dense"
                     id="name"
-                    name="email"
+                    name="name"
                     label="Name"
                     type="text"
                     fullWidth
@@ -102,23 +106,15 @@ export default function EditQrCodeDialog(props: EditQrCodeDialogProps) {
                     onChange={(event) => setQrCode({ ...qrCode, z: event.target.value, url: getUrl(qrCode.x, qrCode.y, event.target.value) })}
                 />
 
-                <TextField
-                    required
-                    margin="dense"
-                    id="url"
-                    name="url"
-                    label="URL"
-                    type="text"
-                    fullWidth
-                    variant="standard"
-                    value={qrCode.url}
-                />
+                {/*<img style={{ alignSelf: "center", width: 240, height: 240, display: "flex", margin: "auto", marginTop: 20 }} src={"data:image/jpeg;base64," + QrCodesApi.imageBase64} />*/}
 
-                <img style={{ alignSelf: "center", width: 200, height: 200, display: "flex", margin: "auto" }} src={"data:image/jpeg;base64," + QrCodesApi.imageBase64} />
-
+                <QRCode id={`DialogQrCode_${qrCode.id}`} style={{ alignSelf: "center", display: "flex", margin: "auto", marginTop: 20 }} value={qrCode.url} level='M' />
             </DialogContent>
             <DialogActions>
-                <Button autoFocus onClick={props.handleClose}>
+                <Button startIcon={<Download />} onClick={() => downloadQrCode(`DialogQrCode_${qrCode.id}`, qrCode.name)}>
+                    Download
+                </Button>
+                <Button style={{marginLeft: 'auto'}} autoFocus onClick={props.handleClose}>
                     Cancel
                 </Button>
                 <Button onClick={() => props.handleSave(qrCode)} autoFocus>

@@ -6,20 +6,28 @@ export default class QrCodesApi {
 
 
     private static qrCodes: QrCode[] = [
-        { id: 1, name: "QrCode_1", description: "1", url: "", imageBase64: QrCodesApi.imageBase64, x: 44252, y: 11000, z: "2" },
-        { id: 2, name: "QrCode_2", description: "1", url: "", imageBase64: QrCodesApi.imageBase64, x: 46852, y: 12852, z: "2" },
-        { id: 3, name: "QrCode_3", description: "1", url: "", imageBase64: QrCodesApi.imageBase64, x: 45052, y: 14352, z: "2" },
-        { id: 4, name: "QrCode_4", description: "1", url: "", imageBase64: QrCodesApi.imageBase64, x: 44552, y: 11600, z: "2" },
-        { id: 5, name: "Beacon_5", description: "1", url: "", imageBase64: QrCodesApi.imageBase64, x: 43152, y: 12352, z: "2" },
-        { id: 6, name: "Beacon_6", description: "1", url: "", imageBase64: QrCodesApi.imageBase64, x: 42252, y: 12652, z: "2" },
-        { id: 7, name: "Beacon_7", description: "1", url: "", imageBase64: QrCodesApi.imageBase64, x: 43000, y: 13652, z: "2" },
-        { id: 8, name: "Beacon_8", description: "1", url: "", imageBase64: QrCodesApi.imageBase64, x: 43252, y: 12652, z: "2" },
-        { id: 9, name: "Beacon_9", description: "1", url: "", imageBase64: QrCodesApi.imageBase64, x: 44052, y: 13652, z: "2" },
-        { id: 10, name: "Beacon_10", description: "1", url: "", imageBase64: QrCodesApi.imageBase64, x: 44652, y: 14722, z: "2" },
+        /*{ id: 1, name: "QrCode_1", description: "1", url: "https://demo.expofp.com/?pnta", imageBase64: QrCodesApi.imageBase64, x: 44252, y: 11000, z: "2" },
+        { id: 2, name: "QrCode_2", description: "1", url: "https://demo.expofp.com/?pnta", imageBase64: QrCodesApi.imageBase64, x: 46852, y: 12852, z: "2" },
+        { id: 3, name: "QrCode_3", description: "1", url: "https://demo.expofp.com/?pnta", imageBase64: QrCodesApi.imageBase64, x: 45052, y: 14352, z: "2" },*/
     ]
 
     public static async getQrCodes(planId: number): Promise<QrCode[]> {
         return QrCodesApi.qrCodes
+    }
+
+    public static async editQrCode(qrCode: QrCode) {
+        if(qrCode.id < 0){
+            let id = 0;
+            QrCodesApi.qrCodes.forEach(p => p.id > id && (id = p.id))
+            QrCodesApi.qrCodes = [...QrCodesApi.qrCodes, {...qrCode, id: (id+1)} ]
+        }
+        else {
+            QrCodesApi.qrCodes = [...QrCodesApi.qrCodes.filter(p=> p.id != qrCode.id), qrCode]
+        }
+    }
+
+    public static async deleteQrCode(id: number) {
+        QrCodesApi.qrCodes = QrCodesApi.qrCodes.filter(p => p.id != id)
     }
 }
 

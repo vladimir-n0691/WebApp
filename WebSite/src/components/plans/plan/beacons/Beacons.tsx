@@ -100,7 +100,7 @@ export const Beacons = (props: BeaconsProps) => {
     const handleDeleteBeacon = async (b: Beacon) => {
         if (window.confirm(`Delete beacon ${b.name}?`)) {
             await BeaconsApi.deleteBeacon(b.id)
-            await BeaconsApi.getBeacons(props.plan.id).then((p) => setBeacons(p))
+            setBeacons(await BeaconsApi.getBeacons(props.plan.id))
         }
     }
 
@@ -119,7 +119,7 @@ export const Beacons = (props: BeaconsProps) => {
     const handleSave = async (b: Beacon) => {
         setEditBeacon(null);
         await BeaconsApi.editBeacon(b)
-        await BeaconsApi.getBeacons(props.plan.id).then((p) => setBeacons(p))
+        setBeacons(await BeaconsApi.getBeacons(props.plan.id))
     }
 
     const handleClose = () => setEditBeacon(null)

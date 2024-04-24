@@ -18,6 +18,12 @@ export interface Beacon {
     z: string | null
 }
 
+export interface Booth {
+    id: number;
+    name: string;
+    externalId : string | null;
+}
+
 export interface QrCode {
     id: number;
     name: string;

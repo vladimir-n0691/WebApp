@@ -17,7 +17,7 @@ import EditPlanDialog from './EditPlanDialog';
 import Button from '@mui/material/Button';
 import Toolbar from '@mui/material/Toolbar';
 import { useDispatch } from 'react-redux';
-import { setPlan } from '../../store';
+
 
 
 export default function PlansTable() {
@@ -33,7 +33,7 @@ export default function PlansTable() {
     PlansApi.getPlans().then((p) => setPlans(p))
   }, []);
 
-  const setPlanFunc = (plan: Plan | null) => dispath(setPlan(plan));
+  //const setPlanFunc = (plan: Plan | null) => dispath(setPlan(plan));
 
   const handleChangePage = (event: unknown, newPage: number) => setPage(newPage);
   const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -48,12 +48,12 @@ export default function PlansTable() {
   const handleDeletePlan = async (p: Plan) => {
     if (window.confirm(`Delete plan ${p.name}?`)) {
       await PlansApi.deletePlan(p.id)
-      await PlansApi.getPlans().then((p) => setPlans(p))
+      //await PlansApi.getPlans().then((p) => setPlans(p))
     }
   }
 
   const handleOpenPlan = (p: Plan) => { 
-    setPlanFunc(p); 
+    //setPlanFunc(p); 
     navigate(`/plans/${p.id}`); 
   }
 

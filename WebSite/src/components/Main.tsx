@@ -18,13 +18,15 @@ import ListItemText from '@mui/material/ListItemText';
 import { Add, Home, Logout, Settings } from '@mui/icons-material';
 import PlansTable from './plans/PlansTable';
 import Button from '@mui/material/Button';
-import { Route, Routes, useNavigate } from 'react-router-dom';
+import { Route, Routes, useLoaderData, useNavigate, useParams } from 'react-router-dom';
 import { Settings as SettingsView } from './Settings';
 import { ACCESS_TOKEN_KEY } from '../common/constants';
 import Plan from './plans/plan/Plan';
 import { AppState } from '../store';
 import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
+import PlansApi from '../api/PlansApi';
+import { Plan as PlanType } from '../common/types';
 
 const drawerWidth: number = 240;
 
@@ -81,13 +83,11 @@ const defaultTheme = createTheme();
 export default function Main() {
   const navigate = useNavigate();
 
-  const plan = useSelector((state: AppState) => state.common.plan);
+  /*const plan = useSelector((state: AppState) => state.common.plan);
+  useEffect(() => {}, [plan])*/
 
+  const [currentPlan, setCurrentPlan] = React.useState<PlanType | null>(null);
   const [open, setOpen] = React.useState(true);
-
-  useEffect(() => {
-    console.log("Plan was changed: " + plan)
-  }, [plan]);
 
   const toggleDrawer = () => setOpen(!open)
 
@@ -114,6 +114,22 @@ export default function Main() {
       </ListItemButton>
     </React.Fragment>
   );
+
+  const RenderPlan = () => {
+    const { id } = useParams();
+    const [plan, setPlan] = React.useState<PlanType | null>(null)
+
+    useEffect(() => {
+      const fetchPlan = async () => {
+        let pln = await PlansApi.getPlanById(Number(id))
+        setPlan(pln)
+        setCurrentPlan(pln)
+      }
+      fetchPlan()
+    }, [id]);
+
+    return (plan ? <Plan plan={plan} /> : <></>)
+  }
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -155,7 +171,7 @@ export default function Main() {
                 noWrap
                 sx={{ flexGrow: 1 }}
               >
-                {plan?.name}
+                {currentPlan?.name}
               </Typography>} />
               <Route path="/settings" element={<Typography
                 component="h1"
@@ -208,12 +224,12 @@ export default function Main() {
           <Toolbar />
 
           <Routes>
-            <Route path="/" element={<>
+            <Route path="/" element={
               <Container maxWidth={false} sx={{ mt: 1, mb: 1, flexGrow: 1 }}>
                 <PlansTable />
               </Container>
-            </>} />
-            <Route path="/plans/:number" element={plan && <Plan plan={plan} />} />
+            } />
+            <Route path="/plans/:id" element={<RenderPlan />} />
             <Route path="/settings" element={<SettingsView />} />
           </Routes>
         </Box>
