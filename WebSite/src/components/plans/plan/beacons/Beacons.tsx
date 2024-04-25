@@ -57,7 +57,6 @@ export const Beacons = (props: BeaconsProps) => {
             init();  
             `
             document.body.appendChild(script);
-
         }
         document.body.appendChild(expoFpScript);
 

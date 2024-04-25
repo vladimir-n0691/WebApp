@@ -8,7 +8,7 @@ import TableRow from '@mui/material/TableRow';
 import IconButton from "@mui/material/IconButton";
 import { Add, Bluetooth, Delete, Download, Edit, PinDrop } from "@mui/icons-material";
 import DotRing from "../../../common/DotRing";
-import { destroyFloorplan, selectCurrentPosition, setOnBoothClickCallback, setOnFpConfiguredCallback, setOnGetCoordsClickCallback } from "../../../common/fp";
+import { destroyFloorplan, selectCurrentPosition, setOnBoothClickCallback, setOnGetCoordsClickCallback } from "../../../common/fp";
 import { Booth, Plan, QrCode } from "../../../../common/types";
 import QrCodesApi from "../../../../api/QrCodesApi";
 import Helper from "../../../../common/Helper";
