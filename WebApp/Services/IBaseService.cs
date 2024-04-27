@@ -19,7 +19,7 @@ namespace WebApp.Services
         /// </summary>
         /// <param name="id">Object identifier</param>
         /// <returns>Object</returns>
-        Task<TData> GetByIdAsync(Guid id);
+        Task<TData> GetByIdAsync(int id);
 
         /// <summary>
         /// Adds an object
@@ -54,7 +54,7 @@ namespace WebApp.Services
         /// </summary>
         /// <param name="id">Object identifier</param>
         /// <returns>Object</returns>
-        Task<TData> RemoveByIdAsync(Guid id);
+        Task<TData> RemoveByIdAsync(int id);
 
         /// <summary>
         /// Removes an object

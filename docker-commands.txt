@@ -32,3 +32,19 @@ docker stop $(docker ps -a -q)
 
 docker-compose build
 docker-compose up
+
+-----------------------------------------------------------------------------
+
+docker build -t vladimir0691/webapp:latest .
+docker push vladimir0691/webapp:latest
+
+
+docker login -u vladimir0691 -p 863368zet
+
+docker pull vladimir0691/webapp:latest
+
+nohup docker run -w /app -it -p 80:80 vladimir0691/webapp:latest & exit
+
+docker run -w /app -it --env=ASPNETCORE_LOGGING__CONSOLE__DISABLECOLORS=true --env=ASPNETCORE_ENVIRONMENT=Development --env=ASPNETCORE_URLS=http://+:80 --env=PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin --env=APP_UID=1654 --env=ASPNETCORE_HTTP_PORTS=8080 --env=DOTNET_RUNNING_IN_CONTAINER=true --env=DOTNET_VERSION=8.0.4 --env=ASPNET_VERSION=8.0.4 -p 32780:443 -p 32781:80 --restart=no  vladimir0691/webapp:latest
+
+docker run -w /app -it --env=ASPNETCORE_LOGGING__CONSOLE__DISABLECOLORS=true --env=ASPNETCORE_URLS=http://+:80 --env=PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin --env=APP_UID=1654 --env=ASPNETCORE_HTTP_PORTS=8080 --env=DOTNET_RUNNING_IN_CONTAINER=true --env=DOTNET_VERSION=8.0.4 --env=ASPNET_VERSION=8.0.4 -p 32780:443 -p 32781:80 --restart=no  vladimir0691/webapp:latest

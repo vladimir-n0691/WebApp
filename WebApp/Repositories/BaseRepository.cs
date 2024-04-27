@@ -43,9 +43,9 @@ namespace WebApp.Repositories
         }
 
         /// <summary>
-        /// <see cref="IBaseRepository.GetByIdAsync(Guid)"/>
+        /// <see cref="IBaseRepository.GetByIdAsync(int)"/>
         /// </summary>
-        public virtual async Task<TDto> GetByIdAsync(Guid id)
+        public virtual async Task<TDto> GetByIdAsync(int id)
         {
             try
             {
@@ -104,7 +104,7 @@ namespace WebApp.Repositories
             TDto result = null;
             try
             {
-                var entityId = entity.GetPropertyValue<TDto, Guid>(nameof(IIdentifiable.Id));
+                var entityId = entity.GetPropertyValue<TDto, int>(nameof(IIdentifiable.Id));
 
                 result = await DbContext.GetEntities<TDto, TContext>().FirstOrDefaultAsync(i => i.Id == entityId);
                 result.UpdateAllProperties(entity);
@@ -126,13 +126,13 @@ namespace WebApp.Repositories
             var result = new List<TDto>();
 
             TDto currentItem = null;
-            Guid entityId;
+            int entityId;
 
             foreach (var entity in entities)
             {
                 try
                 {
-                    entityId = entity.GetPropertyValue<TDto, Guid>(nameof(IIdentifiable.Id));
+                    entityId = entity.GetPropertyValue<TDto, int>(nameof(IIdentifiable.Id));
                     currentItem = await DbContext.GetEntities<TDto, TContext>().FirstOrDefaultAsync(i => i.Id == entityId);
                     currentItem.UpdateAllProperties(entity);
                     result.Add(currentItem);
@@ -157,9 +157,9 @@ namespace WebApp.Repositories
         }
 
         /// <summary>
-        /// <see cref="IBaseRepository.RemoveByIdAsync(Guid)(Guid)"/>
+        /// <see cref="IBaseRepository.RemoveByIdAsync(int)"/>
         /// </summary>
-        public virtual async Task<TDto> RemoveByIdAsync(Guid id)
+        public virtual async Task<TDto> RemoveByIdAsync(int id)
         {
             TDto result;
             try
@@ -178,7 +178,7 @@ namespace WebApp.Repositories
         /// <summary>
         /// <see cref="IBaseRepository.RemoveAsync(TDto)"/>
         /// </summary>
-        public virtual async Task<TDto> RemoveAsync(TDto entity) => await RemoveByIdAsync(entity?.Id ?? Guid.Empty);
+        public virtual async Task<TDto> RemoveAsync(TDto entity) => entity != null ? await RemoveByIdAsync(entity.Id) : null;
 
         /// <summary>
         /// <see cref="IBaseRepository.RemoveRangeAsync(IEnumerable{TDto})"/>

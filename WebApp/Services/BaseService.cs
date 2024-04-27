@@ -51,9 +51,9 @@ namespace WebApp.Services
         }
 
         /// <summary>
-        /// <see cref="IBaseService.GetByIdAsync(Guid)"/>
+        /// <see cref="IBaseService.GetByIdAsync(int)"/>
         /// </summary> 
-        public virtual async Task<TData> GetByIdAsync(Guid id)
+        public virtual async Task<TData> GetByIdAsync(int id)
         {
             try
             {
@@ -126,9 +126,9 @@ namespace WebApp.Services
         }
 
         /// <summary>
-        /// <see cref="IBaseService.RemoveByIdAsync(Guid)"/>
+        /// <see cref="IBaseService.RemoveByIdAsync(int)"/>
         /// </summary>
-        public virtual async Task<TData> RemoveByIdAsync(Guid id)
+        public virtual async Task<TData> RemoveByIdAsync(int id)
         {
             try
             {

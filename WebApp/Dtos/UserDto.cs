@@ -2,12 +2,28 @@
 
 namespace WebApp.Dtos
 {
-    [Table("Users")]
+    [Table("users")]
     public class UserDto : BaseDto
     {
-        public string Login { get; set; }
-        public string Password { get; set; }
-        public int Type { get; set; }
+        [Column("type")]
+        public int Type { get;set; }
+
+        [Column("first_name")]
+        public string FirstName { get; set; }
+
+        [Column("last_name")]
+        public string LastName { get; set; }
+
+        [Column("company")]
+        public string Company { get; set; }
+
+        [Column("email")]
         public string Email { get; set; }
+
+        [Column("login")]
+        public string Login { get; set; }
+
+        [Column("password")]
+        public string Password { get; set; }
     }
 }

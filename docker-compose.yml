@@ -1,4 +1,4 @@
-version: "3.9"
+﻿version: "3.9"
 services:
   postgresserver:
     image: postgres:13.3
@@ -14,11 +14,21 @@ services:
       - "5432:5432"
     volumes:
        - pgdata:/var/lib/postgresql/data
+       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
   webapp:
-    image: vnikitin08/webapp:latest
+    image: vladimir0691/webapp:latest
     environment:
-      POSTGRES_CONNECTION_STRING: "User ID=testuser;Password=testuserpass;Host=postgresserver;Port=5432;Database=testdb;Pooling=true;"
+      - "POSTGRES_CONNECTION_STRING=User ID=testuser;Password=testuserpass;Host=postgresserver;Port=5432;Database=testdb;Pooling=true;"
+      - "ASPNETCORE_LOGGING__CONSOLE__DISABLECOLORS=true"
+      - "ASPNETCORE_URLS=http://+:80"
+      - "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      - "APP_UID=1654"
+      - "ASPNETCORE_HTTP_PORTS=8080"
+      - "DOTNET_RUNNING_IN_CONTAINER=true"
+      - "DOTNET_VERSION=8.0.4"
+      - "ASPNET_VERSION=8.0.4"
     ports:
+      - "443:443"
       - "80:80"
     working_dir: /app
     links:

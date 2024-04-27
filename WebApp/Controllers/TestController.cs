@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Collections;
 using WebApp.Repositories;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace WebApp.Controllers
 {
