@@ -1,48 +1,76 @@
-import { User } from "../common/types";
+import { ACCESS_TOKEN_KEY, USER_ID_KEY } from "../common/constants";
+import { CreateUserRequest, User } from "../common/types";
 
 export default class UsersApi {
-
-  private static users: User[] = [];
-
-
-  public static async createUser(user: User) {
-    let id = 0;
-    UsersApi.users.forEach(p => p.id > id && (id = p.id))
-    UsersApi.users = [...UsersApi.users, { ...user, id: (id + 1) }]
-  }
-
-  public static async getUser(token: string): Promise<User | null> {
-    return {id: 1, firstName: "firstName", lastName: "lastName", email: "email", company: "HOME", password: "**************"}
-  }
-
-
-  public static async login(email: string, password: string): Promise<string | null> {
-
-    if (UsersApi.users.findIndex(p => p.email === email && p.password === password) >= 0) {
-      return "accessToken123"
+  public static async createUser(request: CreateUserRequest) {
+    const response = await fetch(`/api/users/create`, {
+      method: 'POST',
+      headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+      body: JSON.stringify(request),
+    });
+    if (response.status == 200 && response.ok === true) {
+      const responseData = await response.json();
+      console.log(responseData);
+      return ""
     }
     else {
       return null;
     }
+  }
 
-    //TODO return
-    /*const response = await fetch(`/api/auth/login?user=${login}&password=${password}`, {
+  public static async updateUser(user: User): Promise<boolean> {
+    const response = await fetch(`/api/users/update`, {
+      method: 'PATCH',
+      headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+      body: JSON.stringify(user),
+    });
+
+    if (response.status == 200 && response.ok === true) {
+      const responseData = await response.json();
+      console.log(responseData);
+      return true
+    }
+    else {
+      return false;
+    }
+  }
+
+  public static async getUserById(id: number): Promise<User | null> {
+    const response = await fetch(`/api/users/${id}`, {
       method: "GET",
       headers: { Accept: "application/json" },
     });
-    if(response.status == 200 && response.ok === true){
+
+    if (response.status == 200 && response.ok === true) {
       const responseData = await response.json();
-      localStorage.setItem(ACCESS_TOKEN_KEY, responseData.access_token);
-      console.log(responseData.access_token);
-      window.location.href = '/';
+      console.log(responseData);
+      return responseData
     }
-    else {
-      alert("Error")
-    }*/
+
+    return null
   }
 
-  public static async logout(accessToken: string) {
+  public static async login(login: string, password: string): Promise<boolean> {
+    const response = await fetch(`/api/users/login?login=${login}&password=${password}`, {
+      method: "GET",
+      headers: { Accept: "application/json" },
+    });
 
+    if (response.status == 200 && response.ok === true) {
+      const responseData = await response.json()
+      console.log(responseData)
+
+      localStorage.setItem(ACCESS_TOKEN_KEY, responseData.access_token)
+      localStorage.setItem(USER_ID_KEY, responseData.user_id)
+
+      return true
+    }
+
+    return false
   }
 
+  public static async logout() {
+    localStorage.setItem(ACCESS_TOKEN_KEY, "")
+    localStorage.setItem(USER_ID_KEY, "")
+  }
 }

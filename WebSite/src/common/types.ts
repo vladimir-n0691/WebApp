@@ -37,12 +37,22 @@ export interface QrCode {
     z: string | null
 }
 
-
-export interface User {
-    id: number;
+export interface CreateUserRequest {
     firstName: string;
     lastName: string;
     email: string;
     company: string;
+    login: string;
+    password: string,
+}
+
+export interface User {
+    id: number;
+    type: number;
+    firstName: string;
+    lastName: string;
+    email: string;
+    company: string;
+    login: string;
     password: string,
 }

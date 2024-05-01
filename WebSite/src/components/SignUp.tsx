@@ -44,9 +44,10 @@ export default function SignUp() {
     let company = data.get('company')?.toString() ?? ""
 
     let email = data.get('email')?.toString() ?? ""
+    let login = data.get('login')?.toString() ?? ""
     let password = data.get('password')?.toString() ?? ""
 
-    UsersApi.createUser({ id: 0, firstName: firstName, lastName: lastName, company: company, email: email, password: password }).then(r => {
+    UsersApi.createUser({ firstName: firstName, lastName: lastName, company: company, email: email, login: login, password: password }).then(r => {
       navigate(`/signin`)
     })
 
@@ -111,6 +112,16 @@ export default function SignUp() {
                   label="Company"
                   name="company"
                   autoComplete="company"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  id="login"
+                  label="Login"
+                  name="login"
+                  autoComplete="login"
                 />
               </Grid>
               <Grid item xs={12}>

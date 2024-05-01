@@ -41,19 +41,18 @@ export default function SignIn() {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    let email = data.get('email')?.toString()
+    let login = data.get('login')?.toString()
     let password = data.get('password')?.toString()
 
-    console.log("login: " + email)
+    console.log("login: " + login)
     console.log("password: " + password)
 
-    UsersApi.login(email!, password!).then(t => {
-      if (t != null && t.length > 0) {
-        localStorage.setItem(ACCESS_TOKEN_KEY,t);
+    UsersApi.login(login!, password!).then(result => {
+      if (result) {
         window.location.href = '/';
         //navigate(`/`)
       }
-      else{
+      else {
         window.alert("Email or password is incorrect")
       }
     })
@@ -82,10 +81,10 @@ export default function SignIn() {
               margin="normal"
               required
               fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
+              id="login"
+              label="Login"
+              name="login"
+              autoComplete="login"
               autoFocus
             />
             <TextField
