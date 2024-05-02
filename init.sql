@@ -10,3 +10,14 @@ CREATE TABLE "users" (
 	
 	PRIMARY KEY("id")
 );
+
+CREATE TABLE "plans" (
+	"id"	bigserial UNIQUE,
+	"user_id"	bigserial NOT NULL,
+	"name"	TEXT NOT NULL,
+	"description"	TEXT,
+	"url"	TEXT NOT NULL,
+	
+	PRIMARY KEY("id"),
+	FOREIGN KEY ("user_id") REFERENCES "users"("id")
+);

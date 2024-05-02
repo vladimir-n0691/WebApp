@@ -1,5 +1,6 @@
 export interface Plan {
     id: number;
+    userId: number;
     name: string;
     description: string | null;
     url: string;

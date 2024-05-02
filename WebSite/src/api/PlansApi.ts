@@ -3,29 +3,83 @@ import { Plan } from "../common/types";
 export default class PlansApi {
 
     private static plans: Plan[] = [
-        { id: 1, name: "Demo", description: "demo plan", url: "https://demo.expofp.com" },
+        { id: 1, userId: 1, name: "Demo", description: "demo plan", url: "https://demo.expofp.com" },
     ];
 
-    public static async getPlans(): Promise<Plan[]> {
-        return PlansApi.plans
+    public static async getPlansByUserId(userId: number): Promise<Plan[]> {
+        const response = await fetch(`/api/plans/getByUserId/${userId}`, {
+            method: "GET",
+            headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+        });
+
+        if (response.status == 200 && response.ok === true) {
+            const responseData = await response.json();
+            console.log(responseData);
+            return responseData
+        }
+
+        return []
     }
 
     public static async getPlanById(id: number): Promise<Plan | null> {
-        return PlansApi.plans.find(p => p.id == id) ?? null
+        const response = await fetch(`/api/plans/${id}`, {
+            method: "GET",
+            headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+        });
+
+        if (response.status == 200 && response.ok === true) {
+            const responseData = await response.json();
+            console.log(responseData);
+            return responseData
+        }
+
+        return null
     }
 
-    public static async editPlan(plan: Plan) {
-        if (plan.id < 0) {
-            let id = 0;
-            PlansApi.plans.forEach(p => p.id > id && (id = p.id))
-            PlansApi.plans = [...PlansApi.plans, { ...plan, id: (id + 1) }]
+    public static async createPlan(plan: Plan) {
+        const response = await fetch(`/api/plans`, {
+            method: "POST",
+            headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+            body: JSON.stringify(plan),
+        });
+
+        if (response.status == 200 && response.ok === true) {
+            const responseData = await response.json();
+            console.log(responseData);
+            return responseData
         }
-        else {
-            PlansApi.plans = [...PlansApi.plans.filter(p => p.id != plan.id), plan]
+
+        return null
+    }
+
+    public static async updatePlan(plan: Plan) {
+        const response = await fetch(`/api/plans`, {
+            method: "PATCH",
+            headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+            body: JSON.stringify(plan),
+        });
+
+        if (response.status == 200 && response.ok === true) {
+            const responseData = await response.json();
+            console.log(responseData);
+            return responseData
         }
+
+        return null
     }
 
     public static async deletePlan(id: number) {
-        PlansApi.plans = PlansApi.plans.filter(p => p.id != id)
+        const response = await fetch(`/api/plans/${id}`, {
+            method: "DELETE",
+            headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+        });
+
+        if (response.status == 200 && response.ok === true) {
+            const responseData = await response.json();
+            console.log(responseData);
+            return responseData
+        }
+
+        return null
     }
 }

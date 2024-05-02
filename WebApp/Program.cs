@@ -17,6 +17,7 @@ namespace WebApp
             cfg.AllowNullCollections = true;
 
             cfg.CreateMap<UserDto, User>().ReverseMap();
+            cfg.CreateMap<PlanDto, Plan>().ReverseMap();
         }));
 
         public static void Main(string[] args)
@@ -30,6 +31,9 @@ namespace WebApp
 
             builder.Services.AddScoped<IUsersRepository, UsersRepository>();
             builder.Services.AddScoped<IUsersService, UsersService>();
+
+            builder.Services.AddScoped<IPlansRepository, PlansRepository>();
+            builder.Services.AddScoped<IPlansService, PlansService>();
 
             builder.Services.AddAuthentication(options =>
             {

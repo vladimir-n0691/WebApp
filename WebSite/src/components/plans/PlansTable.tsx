@@ -17,6 +17,7 @@ import EditPlanDialog from './EditPlanDialog';
 import Button from '@mui/material/Button';
 import Toolbar from '@mui/material/Toolbar';
 import { useDispatch } from 'react-redux';
+import { USER_ID_KEY } from '../../common/constants';
 
 
 
@@ -29,8 +30,13 @@ export default function PlansTable() {
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [editPlan, setEditPlan] = React.useState<Plan | null>(null);
 
+  const userId = localStorage.getItem(USER_ID_KEY)
+
   useEffect(() => {
-    PlansApi.getPlans().then((p) => setPlans(p))
+    if (userId != null) {
+      PlansApi.getPlansByUserId(Number(userId)).then((p) => setPlans(p))
+    }
+
   }, []);
 
   //const setPlanFunc = (plan: Plan | null) => dispath(setPlan(plan));
@@ -42,25 +48,37 @@ export default function PlansTable() {
   };
 
   const handleAddPlan = () => {
-    setEditPlan({ id: -1, name: "", url: "", description: "" })
+    if (userId != null) {
+      setEditPlan({ id: 0, userId: Number(userId), name: "", url: "", description: "" })
+    }
   }
 
   const handleDeletePlan = async (p: Plan) => {
     if (window.confirm(`Delete plan ${p.name}?`)) {
       await PlansApi.deletePlan(p.id)
-      //await PlansApi.getPlans().then((p) => setPlans(p))
+      if (userId != null) {
+        PlansApi.getPlansByUserId(Number(userId)).then((p) => setPlans(p))
+      }
     }
   }
 
-  const handleOpenPlan = (p: Plan) => { 
+  const handleOpenPlan = (p: Plan) => {
     //setPlanFunc(p); 
-    navigate(`/plans/${p.id}`); 
+    navigate(`/plans/${p.id}`);
   }
 
   const handleSavePlan = async (p: Plan) => {
     setEditPlan(null);
-    await PlansApi.editPlan(p)
-    await PlansApi.getPlans().then((p) => setPlans(p))
+    if (p.id == 0) {
+      await PlansApi.createPlan(p)
+    }
+    else {
+      await PlansApi.updatePlan(p)
+    }
+
+    if (userId != null) {
+      PlansApi.getPlansByUserId(Number(userId)).then((p) => setPlans(p))
+    }
   }
 
   const handleClosePlan = () => setEditPlan(null)

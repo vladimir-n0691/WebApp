@@ -2,11 +2,11 @@ import { ACCESS_TOKEN_KEY, USER_ID_KEY } from "../common/constants";
 import { CreateUserRequest, User } from "../common/types";
 
 export default class UsersApi {
-  public static async createUser(request: CreateUserRequest) {
-    const response = await fetch(`/api/users/create`, {
+  public static async createUser(user: User) {
+    const response = await fetch(`/api/users`, {
       method: 'POST',
       headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
-      body: JSON.stringify(request),
+      body: JSON.stringify(user),
     });
     if (response.status == 200 && response.ok === true) {
       const responseData = await response.json();
@@ -19,7 +19,7 @@ export default class UsersApi {
   }
 
   public static async updateUser(user: User): Promise<boolean> {
-    const response = await fetch(`/api/users/update`, {
+    const response = await fetch(`/api/users`, {
       method: 'PATCH',
       headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
       body: JSON.stringify(user),
@@ -38,7 +38,7 @@ export default class UsersApi {
   public static async getUserById(id: number): Promise<User | null> {
     const response = await fetch(`/api/users/${id}`, {
       method: "GET",
-      headers: { Accept: "application/json" },
+      headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
     });
 
     if (response.status == 200 && response.ok === true) {
@@ -51,7 +51,7 @@ export default class UsersApi {
   }
 
   public static async login(login: string, password: string): Promise<boolean> {
-    const response = await fetch(`/api/users/login?login=${login}&password=${password}`, {
+    const response = await fetch(`/api/auth/login?login=${login}&password=${password}`, {
       method: "GET",
       headers: { Accept: "application/json" },
     });

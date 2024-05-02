@@ -47,10 +47,10 @@ export default function SignUp() {
     let login = data.get('login')?.toString() ?? ""
     let password = data.get('password')?.toString() ?? ""
 
-    UsersApi.createUser({ firstName: firstName, lastName: lastName, company: company, email: email, login: login, password: password }).then(r => {
+    UsersApi.createUser({ id: 0, type: 0, firstName: firstName, lastName: lastName, 
+      company: company, email: email, login: login, password: password }).then(r => {
       navigate(`/signin`)
     })
-
   };
 
   return (

@@ -19,6 +19,11 @@ namespace WebApp.Repositories
         /// </summary>
         public DbSet<UserDto> users { get; private set; }
 
+        /// <summary>
+        /// List of plans
+        /// </summary>
+        public DbSet<PlanDto> plans { get; private set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             //optionsBuilder.UseNpgsql("User ID=testuser;Password=testuserpass;Host=192.168.0.20;Port=5432;Database=testdb;Pooling=true;");
