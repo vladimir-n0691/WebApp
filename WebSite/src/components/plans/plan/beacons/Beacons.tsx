@@ -28,7 +28,7 @@ export const Beacons = (props: BeaconsProps) => {
     const [editBeacon, setEditBeacon] = useState<Beacon | null>(null);
 
     useEffect(() => {
-        BeaconsApi.getBeacons(props.plan.id).then((p) => setBeacons(p))
+        BeaconsApi.getBeaconsByPlanId(props.plan.id).then((p) => setBeacons(p))
     }, []);
 
     useLayoutEffect(() => {
@@ -92,14 +92,15 @@ export const Beacons = (props: BeaconsProps) => {
                 minor = beacons[beacons.length - 1].minor + 1
             }
 
-            setEditBeacon({ id: -1, name: `Beacon_${beacons.length + 1}`, description: "", uuid: uuid, major: major, minor: minor, x: e.x, y: e.y - 2, z: e.z })
+            setEditBeacon({ id: 0, planId: props.plan.id, name: `Beacon_${beacons.length + 1}`, description: "", 
+                uuid: uuid, major: major, minor: minor, x: e.x, y: e.y - 2, z: e.z, lattitude: null, longutude: null })
         })
     }
 
     const handleDeleteBeacon = async (b: Beacon) => {
         if (window.confirm(`Delete beacon ${b.name}?`)) {
             await BeaconsApi.deleteBeacon(b.id)
-            setBeacons(await BeaconsApi.getBeacons(props.plan.id))
+            setBeacons(await BeaconsApi.getBeaconsByPlanId(props.plan.id))
         }
     }
 
@@ -117,8 +118,14 @@ export const Beacons = (props: BeaconsProps) => {
 
     const handleSave = async (b: Beacon) => {
         setEditBeacon(null);
-        await BeaconsApi.editBeacon(b)
-        setBeacons(await BeaconsApi.getBeacons(props.plan.id))
+        if(b.id == 0){
+            await BeaconsApi.createBeacon(b)
+        }
+        else if(b.id > 0) {
+            await BeaconsApi.updateBeacon(b)
+        }
+        
+        setBeacons(await BeaconsApi.getBeaconsByPlanId(props.plan.id))
     }
 
     const handleClose = () => setEditBeacon(null)

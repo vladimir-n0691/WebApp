@@ -5,7 +5,7 @@ import Paper from "@mui/material/Paper";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import { Save } from "@mui/icons-material";
+import { ContentCopy, Save } from "@mui/icons-material";
 import { Plan } from "../../../common/types";
 
 export interface IntegrationProps {
@@ -32,34 +32,25 @@ export const Integration = (props: IntegrationProps) => {
                 <Typography component="p" variant="h5" style={{ marginBottom: "30px" }}>
                     Integration settings
                 </Typography>
+                <div style={{ display: "flex", flexDirection: "row" }}>
+                    <TextField
+                        autoComplete="given-name"
+                        name="apiKey"
+                        required
+                        fullWidth
+                        id="apiKey"
+                        label="Api key"
+                        value={apiKey}
+                        autoFocus
+                    />
 
-                <Grid container spacing={2}>
-                    <Grid item xs={12}>
-                        <TextField
-                            autoComplete="given-name"
-                            name="apiKey"
-                            required
-                            fullWidth
-                            id="apiKey"
-                            label="Api key"
-                            value={apiKey}
-                            autoFocus
-                        />
-                    </Grid>
-                    <Grid item xs={12}>
-                        <TextField
-                            required
-                            fullWidth
-                            id="token"
-                            label="Token"
-                            name="token"
-                            autoComplete="family-name"
-                            value={token}
-                        />
-                    </Grid>
+                    <Button style={{alignSelf: "center", margin: 20}} startIcon={<ContentCopy />} onClick={() => {}}>
+                    </Button>
+
+                </div>
 
 
-                </Grid>
+
             </Paper>
         </Container>
     );

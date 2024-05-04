@@ -17,7 +17,29 @@ CREATE TABLE "plans" (
 	"name"	TEXT NOT NULL,
 	"description"	TEXT,
 	"url"	TEXT NOT NULL,
+	"api_token"	TEXT,
 	
 	PRIMARY KEY("id"),
 	FOREIGN KEY ("user_id") REFERENCES "users"("id")
+);
+
+
+CREATE TABLE "beacons" (
+	"id"	bigserial UNIQUE,
+	"plan_id"	bigserial NOT NULL,
+	"name"	TEXT NOT NULL,
+	"description"	TEXT,
+	"uuid"	TEXT NOT NULL,
+	"major"	INTEGER NOT NULL,
+	"minor"	INTEGER NOT NULL,
+
+	"x"	NUMERIC,
+	"y"	NUMERIC,
+	"z"	TEXT,
+
+	"lattitude"	NUMERIC,
+	"longitude"	NUMERIC,
+
+	PRIMARY KEY("id"),
+	FOREIGN KEY ("plan_id") REFERENCES "plans"("id")
 );

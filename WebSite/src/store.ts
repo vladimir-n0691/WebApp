@@ -5,12 +5,12 @@ import { Plan } from "./common/types";
 
 export type CommonState = {
     showAppLoader: boolean,
-    //plan: Plan | null
+    activePlan: Plan | null
 }
 
 const initialCommonState: CommonState = {
     showAppLoader: false,
-    //plan: null
+    activePlan: null
 };
 
 const commonSlice = createSlice({
@@ -21,16 +21,16 @@ const commonSlice = createSlice({
             state.showAppLoader = action.payload;
             return state;
         },
-        /*setPlan: (state, action: PayloadAction<Plan | null>) => {
-            state.plan = action.payload;
+        setActivePlan: (state, action: PayloadAction<Plan | null>) => {
+            state.activePlan = action.payload;
             return state;
-        },*/
+        },
     }
 });
 
 export const {
     showAppLoader,
-    //setPlan
+    setActivePlan
 } = commonSlice.actions;
 
 const commonReducer = commonSlice.reducer;

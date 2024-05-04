@@ -5,7 +5,7 @@ using WebApp.Repositories;
 
 namespace WebApp.Services
 {
-    public class PlansService : BaseService<Plan, PlanDto>, IPlansService
+    public class PlansService : BaseService<IPlansRepository, PlanDto, Plan>, IPlansService
     {
         public PlansService(IPlansRepository repository, IMapper mapper) : base(repository, mapper)
         {
@@ -15,9 +15,9 @@ namespace WebApp.Services
         {
             try
             {
-                return Mapper.Map<IEnumerable<Plan>>(await ((IPlansRepository)Repository).GetByUserIdAsync(userId));
+                return Mapper.Map<IEnumerable<Plan>>(await Repository.GetByUserIdAsync(userId));
             }
-            catch (Exception ex)
+            catch
             {
                 throw;
             }

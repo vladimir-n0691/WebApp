@@ -1,26 +1,24 @@
-﻿using WebApp.Common;
-
-namespace WebApp.Models
+﻿namespace WebApp.Models
 {
-    public enum UserType
+    public enum UserRole
     {
-        Client, Manager, Admin
+        Client = 0, Manager = 1, Admin = 2, SDK = 3
     }
 
     public class User : BaseModel
     {
         public int Type { get; set; }
 
-        public string FirstName { get; set; }
+        public required string FirstName { get; set; }
 
-        public string LastName { get; set; }
+        public required string LastName { get; set; }
 
-        public string Company { get; set; }
+        public required string Company { get; set; }
 
-        public string Email { get; set; }
+        public required string Email { get; set; }
 
-        public string Login { get; set; }
+        public required string Login { get; set; }
 
-        public string Password { get; set; }
+        public required string Password { get; set; }
     }
 }

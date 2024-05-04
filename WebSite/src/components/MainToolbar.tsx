@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { styled} from '@mui/material/styles';
+import { styled } from '@mui/material/styles';
 import MuiDrawer from '@mui/material/Drawer';
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
@@ -13,9 +13,11 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import { Home, Logout, Settings } from '@mui/icons-material';
-import { Route, Routes, useLoaderData, useNavigate, useParams } from 'react-router-dom';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 import { ACCESS_TOKEN_KEY } from '../common/constants';
-import { Plan as PlanType } from '../common/types';
+import { AppState } from '../store';
+import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
 
 
 const drawerWidth: number = 240;
@@ -68,13 +70,16 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
     }),
 );
 
-export interface MainToolbarProps {
-    plan: PlanType | null
-}
-
-export const MainToolbar = (props: MainToolbarProps) => {
+export const MainToolbar = () => {
 
     const navigate = useNavigate();
+
+    const activePlan = useSelector((state: AppState) => state.common.activePlan);
+
+    useEffect(() => {
+        console.log("activePlan was changed: ")
+        console.log(activePlan)
+    }, [activePlan]);
 
     const [open, setOpen] = React.useState(true);
 
@@ -141,7 +146,7 @@ export const MainToolbar = (props: MainToolbarProps) => {
                         noWrap
                         sx={{ flexGrow: 1 }}
                     >
-                        {props.plan?.name}
+                        {activePlan?.name}
                     </Typography>} />
                     <Route path="/settings" element={<Typography
                         component="h1"
@@ -158,7 +163,7 @@ export const MainToolbar = (props: MainToolbarProps) => {
                 </IconButton>
             </Toolbar>
         </AppBar>
-        
+
         <Drawer variant="permanent" open={open}>
             <Toolbar
                 sx={{

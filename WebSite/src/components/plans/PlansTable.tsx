@@ -49,7 +49,7 @@ export default function PlansTable() {
 
   const handleAddPlan = () => {
     if (userId != null) {
-      setEditPlan({ id: 0, userId: Number(userId), name: "", url: "", description: "" })
+      setEditPlan({ id: 0, userId: Number(userId), name: "", url: "", description: "", apiToken: "" })
     }
   }
 

@@ -14,22 +14,65 @@ export default class BeaconsApi {
         { id: 10, name: "Beacon_10", description: "1", uuid: "e6f3421a-5179-4f8b-b317-343ab537713b", major: 1, minor: 101, x: 44652, y: 14722, z: "2" },*/
     ]
 
-    public static async getBeacons(planId: number): Promise<Beacon[]> {
-        return BeaconsApi.beacons
+    public static async getBeaconsByPlanId(planId: number): Promise<Beacon[]> {
+        const response = await fetch(`/api/beacons/getByPlanId/${planId}`, {
+            method: "GET",
+            headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+        });
+
+        if (response.status == 200 && response.ok === true) {
+            const responseData = await response.json();
+            console.log(responseData);
+            return responseData
+        }
+
+        return []
     }
 
-    public static async editBeacon(beacon: Beacon) {
-        if(beacon.id < 0){
-            let id = 0;
-            BeaconsApi.beacons.forEach(p => p.id > id && (id = p.id))
-            BeaconsApi.beacons = [...BeaconsApi.beacons, {...beacon, id: (id+1)} ]
+    public static async createBeacon(beacon: Beacon) {
+        const response = await fetch(`/api/beacons`, {
+            method: "POST",
+            headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+            body: JSON.stringify(beacon),
+        });
+
+        if (response.status == 200 && response.ok === true) {
+            const responseData = await response.json();
+            console.log(responseData);
+            return responseData
         }
-        else {
-            BeaconsApi.beacons = [...BeaconsApi.beacons.filter(p=> p.id != beacon.id), beacon]
+
+        return null
+    }
+
+    public static async updateBeacon(beacon: Beacon) {
+        const response = await fetch(`/api/beacons`, {
+            method: "PATCH",
+            headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+            body: JSON.stringify(beacon),
+        });
+
+        if (response.status == 200 && response.ok === true) {
+            const responseData = await response.json();
+            console.log(responseData);
+            return responseData
         }
+
+        return null
     }
 
     public static async deleteBeacon(id: number) {
-        BeaconsApi.beacons = BeaconsApi.beacons.filter(p => p.id != id)
+        const response = await fetch(`/api/beacons/${id}`, {
+            method: "DELETE",
+            headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+        });
+
+        if (response.status == 200 && response.ok === true) {
+            const responseData = await response.json();
+            console.log(responseData);
+            return responseData
+        }
+
+        return null
     }
 }

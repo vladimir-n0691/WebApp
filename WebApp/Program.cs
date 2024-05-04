@@ -18,6 +18,8 @@ namespace WebApp
 
             cfg.CreateMap<UserDto, User>().ReverseMap();
             cfg.CreateMap<PlanDto, Plan>().ReverseMap();
+            cfg.CreateMap<BeaconDto, Beacon>().ReverseMap();
+
         }));
 
         public static void Main(string[] args)
@@ -34,6 +36,9 @@ namespace WebApp
 
             builder.Services.AddScoped<IPlansRepository, PlansRepository>();
             builder.Services.AddScoped<IPlansService, PlansService>();
+
+            builder.Services.AddScoped<IBeaconsRepository, BeaconsRepository>();
+            builder.Services.AddScoped<IBeaconsService, BeaconsService>();
 
             builder.Services.AddAuthentication(options =>
             {

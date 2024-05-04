@@ -1,10 +1,11 @@
+import { ACCESS_TOKEN_KEY } from "../common/constants";
 import { Plan } from "../common/types";
 
 export default class PlansApi {
 
-    private static plans: Plan[] = [
+    /*private static plans: Plan[] = [
         { id: 1, userId: 1, name: "Demo", description: "demo plan", url: "https://demo.expofp.com" },
-    ];
+    ];*/
 
     public static async getPlansByUserId(userId: number): Promise<Plan[]> {
         const response = await fetch(`/api/plans/getByUserId/${userId}`, {
@@ -39,7 +40,12 @@ export default class PlansApi {
     public static async createPlan(plan: Plan) {
         const response = await fetch(`/api/plans`, {
             method: "POST",
-            headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+            headers: { 
+                'Accept': 'application/json', 
+                'Content-Type': 'application/json',
+                "Authorization": "Bearer " + localStorage.getItem(ACCESS_TOKEN_KEY)
+            },
+            
             body: JSON.stringify(plan),
         });
 

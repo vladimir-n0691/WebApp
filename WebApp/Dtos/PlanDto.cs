@@ -9,12 +9,15 @@ namespace WebApp.Dtos
         public int UserId { get; set; }
 
         [Column("name")]
-        public string Name { get; set; }
+        public required string Name { get; set; }
 
         [Column("description")]
-        public string Description { get; set; }
+        public string? Description { get; set; }
 
         [Column("url")]
-        public string Url { get; set; }
+        public required string Url { get; set; }
+
+        [Column("api_token")]
+        public string? ApiToken { get; set; }
     }
 }

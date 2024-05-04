@@ -36,7 +36,7 @@ namespace WebApp.Repositories
             {
                 return await DbContext.GetEntities<TDto, TContext>().ToListAsync();
             }
-            catch (Exception ex)
+            catch
             {
                 throw;
             }
@@ -51,7 +51,7 @@ namespace WebApp.Repositories
             {
                 return await DbContext.GetEntities<TDto, TContext>().FirstOrDefaultAsync(i => i.Id == id);
             }
-            catch (Exception ex)
+            catch
             {
                 throw;
             }
@@ -68,7 +68,7 @@ namespace WebApp.Repositories
                 result = DbContext.GetEntities<TDto, TContext>().Add(entity).Entity;
                 await DbContext.SaveChangesAsync();
             }
-            catch (Exception ex)
+            catch
             {
                 throw;
             }
@@ -88,7 +88,7 @@ namespace WebApp.Repositories
                 DbContext.GetEntities<TDto, TContext>().AddRange(entities);
                 await DbContext.SaveChangesAsync();
             }
-            catch (Exception ex)
+            catch
             {
                 throw;
             }
@@ -110,7 +110,7 @@ namespace WebApp.Repositories
                 result.UpdateAllProperties(entity);
                 await DbContext.SaveChangesAsync();
             }
-            catch (Exception ex)
+            catch
             {
                 throw;
             }
@@ -137,7 +137,7 @@ namespace WebApp.Repositories
                     currentItem.UpdateAllProperties(entity);
                     result.Add(currentItem);
                 }
-                catch (Exception ex)
+                catch
                 {
                     throw;
                 }
@@ -147,7 +147,7 @@ namespace WebApp.Repositories
             {
                 await DbContext.SaveChangesAsync();
             }
-            catch (Exception ex)
+            catch
             {
                 throw;
             }
@@ -168,7 +168,7 @@ namespace WebApp.Repositories
                 DbContext.GetEntities<TDto, TContext>().Remove(result);
                 await DbContext.SaveChangesAsync();
             }
-            catch (Exception ex)
+            catch
             {
                 throw;
             }
@@ -196,7 +196,7 @@ namespace WebApp.Repositories
 
                 return removeItems;
             }
-            catch (Exception ex)
+            catch
             {
                 throw;
             }

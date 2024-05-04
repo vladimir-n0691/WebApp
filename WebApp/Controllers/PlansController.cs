@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using WebApp.Helpers;
 using WebApp.Models;
 using WebApp.Services;
 
@@ -8,14 +10,37 @@ namespace WebApp.Controllers
     [Route("api/[controller]")]
     public class PlansController : BaseController<IPlansService, Plan>
     {
-        public PlansController( IPlansService plansService) : base(plansService) { }
+        private readonly IConfiguration configuration;
+        private readonly IUsersService usersService;
+
+
+        public PlansController( IPlansService plansService, IConfiguration configuration, IUsersService usersService) : base(plansService) 
+        {
+            this.configuration = configuration;
+            this.usersService = usersService;
+        }
+
+        [Authorize]
+        [HttpPost()]
+        public override IActionResult Create(Plan entity)
+        {
+            if (User?.Identity?.Name != entity.UserId.ToString())
+            {
+                return BadRequest("Plan.userId != User.id");
+            }
+
+            entity.Id = 0;
+            entity.ApiToken = Helper.CreateJwtToken(configuration, entity.UserId, (int)UserRole.SDK);
+
+            return base.Create(entity);
+        }
 
         [HttpGet("getByUserId/{id}")]
         public IActionResult GetByUserId(int id)
         {
             try
             {
-                var entity = ((PlansService)Service).GetByUserIdAsync(id).GetAwaiter().GetResult();
+                var entity = Service.GetByUserIdAsync(id).GetAwaiter().GetResult();
                 return Ok(entity);
             }
             catch (Exception ex)
@@ -23,5 +48,8 @@ namespace WebApp.Controllers
                 return Problem(ex.Message);
             }
         }
+
+
+
     }
 }

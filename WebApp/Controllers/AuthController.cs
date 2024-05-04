@@ -1,8 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
+using WebApp.Helpers;
 using WebApp.Models;
 using WebApp.Services;
 
@@ -32,31 +29,15 @@ namespace WebApp.Controllers
                 return BadRequest(new { errorText = "Invalid username or password." });
             }
 
-            var identity = GetIdentity(user);
-            if (identity == null)
+            var encodedJwt = Helper.CreateJwtToken(configuration, user.Id, (int)UserRole.Client);
+            if (encodedJwt == null)
             {
                 return BadRequest(new { errorText = "Invalid username or password." });
             }
 
-            var issuer = configuration["Jwt:Issuer"];
-            var audience = configuration["Jwt:Audience"];
-            var tokenKey = Encoding.UTF8.GetBytes(configuration["JWT:Key"]);
-            var lifetime = int.Parse(configuration["JWT:Lifetime"]);
-
-            var now = DateTime.UtcNow;
-            var jwt = new JwtSecurityToken(
-                    issuer: issuer,
-                    audience: audience,
-                    notBefore: now,
-                    claims: identity.Claims,
-                    expires: now.Add(TimeSpan.FromMinutes(lifetime)),
-                    signingCredentials: new SigningCredentials(new SymmetricSecurityKey(tokenKey), SecurityAlgorithms.HmacSha256));
-            var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
-
             var response = new
             {
                 access_token = encodedJwt,
-                user_name = identity.Name,
                 user_id = user.Id
             };
 
@@ -68,19 +49,6 @@ namespace WebApp.Controllers
         public IActionResult Logout()
         {
             return Ok("TEST_DATA");
-        }
-
-        private ClaimsIdentity? GetIdentity(User user)
-        {
-            var claims = new List<Claim>
-                {
-                    new Claim(ClaimsIdentity.DefaultNameClaimType, user.Login),
-                    //new Claim(ClaimsIdentity.DefaultRoleClaimType, user.GetRole())
-                };
-            ClaimsIdentity claimsIdentity =
-            new ClaimsIdentity(claims, "Token", ClaimsIdentity.DefaultNameClaimType,
-                ClaimsIdentity.DefaultRoleClaimType);
-            return claimsIdentity;
         }
     }
 }

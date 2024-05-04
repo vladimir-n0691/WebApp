@@ -12,24 +12,34 @@ import { useEffect } from 'react';
 import PlansApi from '../api/PlansApi';
 import { Plan as PlanType } from '../common/types';
 import { MainToolbar } from './MainToolbar';
+import { useDispatch } from 'react-redux';
+import { setActivePlan } from '../store';
 
 const defaultTheme = createTheme();
 
 export default function Main() {
-  const [currentPlan, setCurrentPlan] = React.useState<PlanType | null>(null);
+  console.log("render Main")
+
 
   const RenderPlan = () => {
+    console.log("render RenderPlan")
+
+    const dispath = useDispatch();
     const { id } = useParams();
     const [plan, setPlan] = React.useState<PlanType | null>(null)
 
+    const setActivePlanFunc = (plan: PlanType | null) => dispath(setActivePlan(plan));
+
     useEffect(() => {
+      console.log("render RenderPlan useEffect")
+
       const fetchPlan = async () => {
         let pln = await PlansApi.getPlanById(Number(id))
         setPlan(pln)
-        setCurrentPlan(pln)
+        setActivePlanFunc(pln)
       }
       fetchPlan()
-    }, [id]);
+    }, []);
 
     return (plan ? <Plan plan={plan} /> : <></>)
   }
@@ -39,7 +49,7 @@ export default function Main() {
       <Box sx={{ display: 'flex' }}>
         <CssBaseline />
 
-        <MainToolbar plan={currentPlan} />
+        <MainToolbar />
 
         <Box
           component="main"

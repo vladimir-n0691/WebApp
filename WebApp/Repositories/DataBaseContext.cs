@@ -13,7 +13,6 @@ namespace WebApp.Repositories
 
         public DataBaseContext(IConfiguration config) => this.config = config;
 
-
         /// <summary>
         /// List of users
         /// </summary>
@@ -23,6 +22,11 @@ namespace WebApp.Repositories
         /// List of plans
         /// </summary>
         public DbSet<PlanDto> plans { get; private set; }
+
+        /// <summary>
+        /// List of beacons
+        /// </summary>
+        public DbSet<BeaconDto> beacons { get; private set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
