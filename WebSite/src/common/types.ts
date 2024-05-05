@@ -5,6 +5,10 @@ export interface Plan {
     description: string | null;
     url: string;
     apiToken: string | null;
+
+    scaleX: number;
+    scaleY: number;
+    scaleZ: number;
 }
 
 export interface Beacon {
