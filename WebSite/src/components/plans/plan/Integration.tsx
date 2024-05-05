@@ -7,6 +7,8 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import { ContentCopy, Save } from "@mui/icons-material";
 import { Plan } from "../../../common/types";
+import { useSelector } from "react-redux";
+import { AppState } from "../../../store";
 
 export interface IntegrationProps {
     plan: Plan
@@ -15,8 +17,11 @@ export interface IntegrationProps {
 export const Integration = (props: IntegrationProps) => {
     console.log("Rendering Integration")
 
-    const [apiKey, setApiKey] = React.useState("");
-    const [token, setToken] = React.useState("");
+    const activePlan = useSelector((state: AppState) => state.common.activePlan);
+    useEffect(() => {
+        console.log("activePlan was changed: ")
+        console.log(activePlan)
+    }, [activePlan]);
 
     return (
         <Container maxWidth={false} sx={{ mt: 1, mb: 1, flexGrow: 1 }}>
@@ -40,11 +45,13 @@ export const Integration = (props: IntegrationProps) => {
                         fullWidth
                         id="apiKey"
                         label="Api key"
-                        value={apiKey}
+                        value={activePlan?.apiToken}
                         autoFocus
                     />
 
-                    <Button style={{alignSelf: "center", margin: 20}} startIcon={<ContentCopy />} onClick={() => {}}>
+                    <Button style={{alignSelf: "center", marginLeft: 10}} startIcon={<ContentCopy />} onClick={() => {
+                        activePlan?.apiToken && navigator.clipboard.writeText(activePlan?.apiToken)
+                    }}>
                     </Button>
 
                 </div>

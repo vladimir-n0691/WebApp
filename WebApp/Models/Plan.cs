@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-
-namespace WebApp.Models
+﻿namespace WebApp.Models
 {
     public class Plan : BaseModel
     {
@@ -13,5 +11,11 @@ namespace WebApp.Models
         public required string Url { get; set; }
 
         public string? ApiToken { get; set; }
+
+        public double ScaleX { get; set; }
+
+        public double ScaleY { get; set; }
+
+        public double ScaleZ { get; set; }
     }
 }

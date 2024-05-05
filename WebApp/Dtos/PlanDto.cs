@@ -19,5 +19,14 @@ namespace WebApp.Dtos
 
         [Column("api_token")]
         public string? ApiToken { get; set; }
+
+        [Column("scale_x")]
+        public double ScaleX { get; set; }
+
+        [Column("scale_y")]
+        public double ScaleY { get; set; }
+
+        [Column("scale_z")]
+        public double ScaleZ { get; set; }
     }
 }

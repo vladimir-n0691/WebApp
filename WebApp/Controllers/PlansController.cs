@@ -31,6 +31,9 @@ namespace WebApp.Controllers
 
             entity.Id = 0;
             entity.ApiToken = Helper.CreateJwtToken(configuration, entity.UserId, (int)UserRole.SDK);
+            entity.ScaleX = 1;
+            entity.ScaleY = 1;
+            entity.ScaleZ = 1;
 
             return base.Create(entity);
         }

@@ -17,7 +17,12 @@ CREATE TABLE "plans" (
 	"name"	TEXT NOT NULL,
 	"description"	TEXT,
 	"url"	TEXT NOT NULL,
+	
 	"api_token"	TEXT,
+
+	"scale_x"	NUMERIC,
+	"scale_y"	NUMERIC,
+	"scale_z"	NUMERIC,
 	
 	PRIMARY KEY("id"),
 	FOREIGN KEY ("user_id") REFERENCES "users"("id")
