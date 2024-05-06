@@ -47,20 +47,7 @@ export default function EditBeaconDialog(props: EditBeaconDialogProps) {
                     value={beacon.name}
                     onChange={(event) => setBeacon({ ...beacon, name: event.target.value })}
                 />
-
-                <TextField
-                    autoFocus
-                    required
-                    margin="dense"
-                    id="description"
-                    name="description"
-                    label="Description"
-                    type="text"
-                    fullWidth
-                    variant="standard"
-                    value={beacon.description}
-                    onChange={(event) => setBeacon({ ...beacon, description: event.target.value })}
-                />
+                
                 <TextField
                     autoFocus
                     required
@@ -135,14 +122,28 @@ export default function EditBeaconDialog(props: EditBeaconDialogProps) {
                     autoFocus
                     required
                     margin="dense"
-                    id="z"
-                    name="z"
+                    id="height"
+                    name="height"
+                    label="Height"
+                    type="text"
+                    fullWidth
+                    variant="standard"
+                    value={beacon.height}
+                    onChange={(event) => setBeacon({ ...beacon, height: Number(event.target.value) })}
+                />
+
+                <TextField
+                    autoFocus
+                    required
+                    margin="dense"
+                    id="level"
+                    name="level"
                     label="Level"
                     type="text"
                     fullWidth
                     variant="standard"
-                    value={beacon.z}
-                    onChange={(event) => setBeacon({ ...beacon, z: event.target.value })}
+                    value={beacon.level}
+                    onChange={(event) => setBeacon({ ...beacon, level: event.target.value })}
                 />
 
             </DialogContent>

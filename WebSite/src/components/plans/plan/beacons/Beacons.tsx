@@ -93,7 +93,7 @@ export const Beacons = (props: BeaconsProps) => {
             }
 
             setEditBeacon({ id: 0, planId: props.plan.id, name: `Beacon_${beacons.length + 1}`, description: "", 
-                uuid: uuid, major: major, minor: minor, x: e.x, y: e.y - 2, z: e.z, lattitude: null, longutude: null })
+                uuid: uuid, major: major, minor: minor, x: e.x, y: e.y - 2, height: 1, level: e.z, lattitude: null, longutude: null })
         })
     }
 
@@ -110,7 +110,7 @@ export const Beacons = (props: BeaconsProps) => {
             setShowCursor(false);
             setOnGetCoordsClickCallback(null)
             selectCurrentPosition(e.x, e.y - 2, e.z)
-            setEditBeacon({ ...b, x: e.x, y: e.y - 2, z: e.z })
+            setEditBeacon({ ...b, x: e.x, y: e.y - 2, level: e.z })
         })
     }
 

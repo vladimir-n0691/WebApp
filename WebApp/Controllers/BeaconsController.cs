@@ -40,8 +40,7 @@ namespace WebApp.Controllers
                 {
                     Beacons = beacons.ToArray(),
                     ScaleX = plan.ScaleX,
-                    ScaleY = plan.ScaleY,
-                    ScaleZ = plan.ScaleZ,
+                    ScaleY = plan.ScaleY
                 };
 
                 return Ok(config);

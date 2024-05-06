@@ -29,8 +29,11 @@ namespace WebApp.Dtos
         [Column("y")]
         public double? Y { get; set; }
 
-        [Column("z")]
-        public string? Z { get; set; }
+        [Column("height")]
+        public double? Height { get; set; }
+
+        [Column("level")]
+        public string? Level { get; set; }
 
         [Column("lattitude")]
         public double? Lattitude { get; set; }

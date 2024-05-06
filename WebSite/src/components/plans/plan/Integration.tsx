@@ -18,15 +18,7 @@ export interface IntegrationProps {
 export const Integration = (props: IntegrationProps) => {
     console.log("Rendering Integration")
 
-    const activePlan = useSelector((state: AppState) => state.common.activePlan);
-    const [plan, setPlan] = React.useState(activePlan);
-
-    useEffect(() => {
-        console.log("activePlan was changed: ")
-        console.log(activePlan)
-    }, [activePlan]);
-
-
+    const [plan, setPlan] = React.useState(props.plan)
     const update = async () => {
         if (plan != null) {
             await PlansApi.updatePlan(plan)
@@ -49,8 +41,6 @@ export const Integration = (props: IntegrationProps) => {
                 </Typography>
 
                 <Grid container spacing={2}>
-
-
                     <Grid item xs={12}>
                         <div style={{ display: "flex", flexDirection: "row" }}>
                             <TextField
@@ -74,7 +64,6 @@ export const Integration = (props: IntegrationProps) => {
 
                     <Grid item xs={12}>
                         <TextField
-                            autoComplete="given-name"
                             name="scaleX"
                             required
                             fullWidth
@@ -85,6 +74,7 @@ export const Integration = (props: IntegrationProps) => {
                             onChange={(event) => plan && setPlan({ ...plan, scaleX: Number(event.target.value) })}
                         />
                     </Grid>
+
                     <Grid item xs={12}>
                         <TextField
                             required
@@ -95,18 +85,6 @@ export const Integration = (props: IntegrationProps) => {
                             type="number"
                             value={plan?.scaleY}
                             onChange={(event) => plan && setPlan({ ...plan, scaleY: Number(event.target.value) })}
-                        />
-                    </Grid>
-                    <Grid item xs={12}>
-                        <TextField
-                            required
-                            fullWidth
-                            id="scaleZ"
-                            label="Scale Z"
-                            name="scaleZ"
-                            type="number"
-                            value={plan?.scaleZ}
-                            onChange={(event) => plan && setPlan({ ...plan, scaleZ: Number(event.target.value) })}
                         />
                     </Grid>
 

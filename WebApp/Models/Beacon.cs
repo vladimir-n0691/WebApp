@@ -21,7 +21,9 @@ namespace WebApp.Models
 
         public double? Y { get; set; }
 
-        public string? Z { get; set; }
+        public double? Height { get; set; }
+
+        public string? Level { get; set; }
 
         public double? Lattitude { get; set; }
 

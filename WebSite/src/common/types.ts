@@ -8,7 +8,6 @@ export interface Plan {
 
     scaleX: number;
     scaleY: number;
-    scaleZ: number;
 }
 
 export interface Beacon {
@@ -22,7 +21,9 @@ export interface Beacon {
 
     x: number | null,
     y: number | null,
-    z: string | null,
+    height: number | null,
+
+    level: string | null,
 
     lattitude: number | null,
     longutude: number | null

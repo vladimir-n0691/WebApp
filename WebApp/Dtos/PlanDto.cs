@@ -25,8 +25,5 @@ namespace WebApp.Dtos
 
         [Column("scale_y")]
         public double ScaleY { get; set; }
-
-        [Column("scale_z")]
-        public double ScaleZ { get; set; }
     }
 }

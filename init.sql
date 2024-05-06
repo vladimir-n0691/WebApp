@@ -22,7 +22,6 @@ CREATE TABLE "plans" (
 
 	"scale_x"	NUMERIC,
 	"scale_y"	NUMERIC,
-	"scale_z"	NUMERIC,
 	
 	PRIMARY KEY("id"),
 	FOREIGN KEY ("user_id") REFERENCES "users"("id")
@@ -40,7 +39,8 @@ CREATE TABLE "beacons" (
 
 	"x"	NUMERIC,
 	"y"	NUMERIC,
-	"z"	TEXT,
+	"height" NUMERIC,
+	"level"	TEXT,
 
 	"lattitude"	NUMERIC,
 	"longitude"	NUMERIC,
