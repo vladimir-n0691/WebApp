@@ -30,12 +30,11 @@ namespace WebApp.Repositories
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            //optionsBuilder.UseNpgsql("User ID=testuser;Password=testuserpass;Host=192.168.0.20;Port=5432;Database=testdb;Pooling=true;");
             var connectionString = config.GetValue<string>("POSTGRES_CONNECTION_STRING");
             if(!string.IsNullOrEmpty(connectionString) )
             {
                 optionsBuilder.UseNpgsql(connectionString);
-            }//*/
+            }
         }
     }
 }
