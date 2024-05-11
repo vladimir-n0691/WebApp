@@ -42,7 +42,7 @@ CREATE TABLE "beacons" (
 	"height" NUMERIC,
 	"level"	TEXT,
 
-	"lattitude"	NUMERIC,
+	"latitude"	NUMERIC,
 	"longitude"	NUMERIC,
 
 	PRIMARY KEY("id"),

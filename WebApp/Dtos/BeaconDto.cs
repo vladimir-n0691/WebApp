@@ -35,8 +35,8 @@ namespace WebApp.Dtos
         [Column("level")]
         public string? Level { get; set; }
 
-        [Column("lattitude")]
-        public double? Lattitude { get; set; }
+        [Column("latitude")]
+        public double? Latitude { get; set; }
 
         [Column("longitude")]
         public double? Longitude { get; set; }

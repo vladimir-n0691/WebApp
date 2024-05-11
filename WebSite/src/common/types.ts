@@ -25,7 +25,7 @@ export interface Beacon {
 
     level: string | null,
 
-    lattitude: number | null,
+    latitude: number | null,
     longutude: number | null
 }
 
