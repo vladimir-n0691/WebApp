@@ -10,13 +10,15 @@ namespace WebApp.Services
     /// </summary>
     /// <typeparam name="TData">Input/output data type</typeparam>
     /// <typeparam name="TDto">Stored data type</typeparam>
-    public class BaseService<TData, TDto> : IBaseService<TData> where TData : IIdentifiable
-                                                                      where TDto : BaseDto
+    /// <typeparam name="TRepo">Repository data type</typeparam>
+    public class BaseService<TRepo, TDto, TData> : IBaseService<TData> where TData : IIdentifiable
+                                                                       where TDto : BaseDto
+                                                                       where TRepo : IBaseRepository<TDto>
     {
         /// <summary>
         /// Repository
         /// </summary>
-        protected IBaseRepository<TDto> Repository { get; }
+        protected TRepo Repository { get; }
 
         /// <summary>
         /// Mapper
@@ -29,7 +31,7 @@ namespace WebApp.Services
         /// <param name="repository">Repository</param>
         /// <param name="mapper">Mapper</param>
         /// </summary>
-        public BaseService(IBaseRepository<TDto> repository, IMapper mapper)
+        public BaseService(TRepo repository, IMapper mapper)
         {
             Repository = repository;
             Mapper = mapper;
@@ -44,22 +46,22 @@ namespace WebApp.Services
             {
                 return Mapper.Map<IEnumerable<TData>>(await Repository.GetAllAsync());
             }
-            catch (Exception ex)
+            catch
             {
                 throw;
             }
         }
 
         /// <summary>
-        /// <see cref="IBaseService.GetByIdAsync(Guid)"/>
+        /// <see cref="IBaseService.GetByIdAsync(int)"/>
         /// </summary> 
-        public virtual async Task<TData> GetByIdAsync(Guid id)
+        public virtual async Task<TData> GetByIdAsync(int id)
         {
             try
             {
                 return Mapper.Map<TData>(await Repository.GetByIdAsync(id));
             }
-            catch (Exception ex)
+            catch
             {
                 throw;
             }
@@ -74,7 +76,7 @@ namespace WebApp.Services
             {
                 return Mapper.Map<TData>(await Repository.AddAsync(Mapper.Map<TDto>(item)));
             }
-            catch (Exception ex)
+            catch
             {
                 throw;
             }
@@ -89,7 +91,7 @@ namespace WebApp.Services
             {
                 return Mapper.Map<IEnumerable<TData>>(await Repository.AddRangeAsync(Mapper.Map<IEnumerable<TDto>>(items)));
             }
-            catch (Exception ex)
+            catch
             {
                 throw;
             }
@@ -104,7 +106,7 @@ namespace WebApp.Services
             {
                 return Mapper.Map<TData>(await Repository.UpdateAsync(Mapper.Map<TDto>(item)));
             }
-            catch (Exception ex)
+            catch
             {
                 throw;
             }
@@ -119,22 +121,22 @@ namespace WebApp.Services
             {
                 return Mapper.Map<IEnumerable<TData>>(await Repository.UpdateRangeAsync(Mapper.Map<IEnumerable<TDto>>(items)));
             }
-            catch (Exception ex)
+            catch
             {
                 throw;
             }
         }
 
         /// <summary>
-        /// <see cref="IBaseService.RemoveByIdAsync(Guid)"/>
+        /// <see cref="IBaseService.RemoveByIdAsync(int)"/>
         /// </summary>
-        public virtual async Task<TData> RemoveByIdAsync(Guid id)
+        public virtual async Task<TData> RemoveByIdAsync(int id)
         {
             try
             {
                 return Mapper.Map<TData>(await Repository.RemoveByIdAsync(id));
             }
-            catch (Exception ex)
+            catch
             {
                 throw;
             }
@@ -149,7 +151,7 @@ namespace WebApp.Services
             {
                 return Mapper.Map<TData>(await Repository.RemoveAsync(Mapper.Map<TDto>(item)));
             }
-            catch (Exception ex)
+            catch
             {
                 throw;
             }
@@ -164,7 +166,7 @@ namespace WebApp.Services
             {
                 return Mapper.Map<IEnumerable<TData>>(await Repository.RemoveRangeAsync(Mapper.Map<IEnumerable<TDto>>(items)));
             }
-            catch (Exception ex)
+            catch
             {
                 throw;
             }

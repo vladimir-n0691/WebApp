@@ -8,6 +8,6 @@
         /// <summary>
         /// Object identifier
         /// </summary>
-        Guid Id { get; set; }
+        int Id { get; set; }
     }
 }

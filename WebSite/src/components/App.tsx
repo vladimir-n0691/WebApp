@@ -1,29 +1,20 @@
-import { Main } from "./Main";
-import { General } from "./General";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { Login } from "./Login";
-import { Register } from "./Register";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import SignIn from "./SignIn";
+import SignUp from "./SignUp";
+import { ACCESS_TOKEN_KEY } from "../common/constants";
+import Main from "./Main";
 
 export const App = () => {
-  /*const dispath = useDispatch();
+  console.log("Rendering App")
 
-  const data = useSelector((state: AppState) => state.common.data);
-  const [lData, setLData] = useState(data);
-  const setDataFunc = () => dispath(setData(lData));
-
-  useEffect(() => {
-    console.log("Data was changed: " + data);
-  }, [data]);*/
-
-  const Home = () => <p>Home Content</p>;
+  const isLoggedIn: boolean = localStorage.getItem(ACCESS_TOKEN_KEY) != null || true;
 
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="" element={<General />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/main" element={<Main />} />
-        <Route path="/register" element={<Register />} />
+        <Route path="/signin" element={<SignIn />} />
+        <Route path="/signup" element={<SignUp />} />
+        <Route path='/*' element={isLoggedIn ? <Main/> : <Navigate to='/signin'/>} />
       </Routes>
     </BrowserRouter>
   );

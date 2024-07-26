@@ -5,7 +5,7 @@ using WebApp.Repositories;
 
 namespace WebApp.Services
 {
-    public class UsersService : BaseService<User, UserDto>, IUsersService
+    public class UsersService : BaseService<IUsersRepository, UserDto, User>, IUsersService
     {
         public UsersService(IUsersRepository repository, IMapper mapper) : base(repository, mapper)
         {

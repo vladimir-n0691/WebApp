@@ -1,13 +1,30 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
+using WebApp.Common;
 
 namespace WebApp.Dtos
 {
-    [Table("Users")]
+    [Table("users")]
     public class UserDto : BaseDto
     {
-        public string Login { get; set; }
-        public string Password { get; set; }
-        public int Type { get; set; }
-        public string Email { get; set; }
+        [Column("user_role")]
+        public UserRole UserRole { get;set; }
+
+        [Column("first_name")]
+        public required string FirstName { get; set; }
+
+        [Column("last_name")]
+        public required string LastName { get; set; }
+
+        [Column("company")]
+        public string? Company { get; set; }
+
+        [Column("email")]
+        public required string Email { get; set; }
+
+        [Column("login")]
+        public required string Login { get; set; }
+
+        [Column("password")]
+        public required string Password { get; set; }
     }
 }

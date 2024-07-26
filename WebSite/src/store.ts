@@ -1,15 +1,16 @@
 import { combineReducers, Store } from "redux";
 import { createSlice, PayloadAction, configureStore as createStore } from "@reduxjs/toolkit";
+//import { Plan } from "./common/types";
 
 
 export type CommonState = {
     showAppLoader: boolean,
-    data: String
+    //activePlan: Plan | null
 }
 
 const initialCommonState: CommonState = {
     showAppLoader: false,
-    data: "Data-123"
+    //activePlan: null
 };
 
 const commonSlice = createSlice({
@@ -20,16 +21,16 @@ const commonSlice = createSlice({
             state.showAppLoader = action.payload;
             return state;
         },
-        setData: (state, action: PayloadAction<String>)=> {
-            state.data = action.payload;
+        /*setActivePlan: (state, action: PayloadAction<Plan | null>) => {
+            state.activePlan = action.payload;
             return state;
-        },
+        },*/
     }
 });
 
 export const {
     showAppLoader,
-    setData
+    //setActivePlan
 } = commonSlice.actions;
 
 const commonReducer = commonSlice.reducer;

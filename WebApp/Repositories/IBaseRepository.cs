@@ -19,7 +19,7 @@ namespace WebApp.Repositories
         /// </summary>
         /// <param name="id">Object identifier</param>
         /// <returns>Object</returns>
-        Task<TDto> GetByIdAsync(Guid id);
+        Task<TDto> GetByIdAsync(int id);
 
         /// <summary>
         /// Adds an object
@@ -54,7 +54,7 @@ namespace WebApp.Repositories
         /// </summary>
         /// <param name="id">Object identifier</param>
         /// <returns>Object</returns>
-        Task<TDto> RemoveByIdAsync(Guid id);
+        Task<TDto> RemoveByIdAsync(int id);
 
         /// <summary>
         /// Removes an object

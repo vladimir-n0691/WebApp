@@ -2,19 +2,20 @@
 
 namespace WebApp.Models
 {
-    public enum UserType
-    {
-        Client, Manager, Admin
-    }
-
     public class User : BaseModel
     {
-        public string Login { get; set; }
-        public string Password { get; set; }
-        public string Email { get; set; }
-        public UserType Type { get; set; }
+        public UserRole UserRole { get; set; }
 
+        public required string FirstName { get; set; }
 
-        public string GetRole() => Type.ToString();
+        public required string LastName { get; set; }
+
+        public required string Company { get; set; }
+
+        public required string Email { get; set; }
+
+        public required string Login { get; set; }
+
+        public required string Password { get; set; }
     }
 }

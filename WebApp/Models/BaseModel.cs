@@ -11,6 +11,6 @@ namespace WebApp.Models
         /// <summary>
         /// Object identifier
         /// </summary>
-        public Guid Id { get; set; }
+        public int Id { get; set; }
     }
 }

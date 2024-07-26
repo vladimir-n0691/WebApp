@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using WebApp.Common;
 
 namespace WebApp.Dtos
@@ -11,7 +12,8 @@ namespace WebApp.Dtos
         /// <summary>
         /// Object identifier
         /// </summary>
-        [Key]
-        public Guid Id { get; set; }
+        [Key, Column("id", TypeName = "bigserial")]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
     }
 }

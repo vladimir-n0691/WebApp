@@ -9,14 +9,22 @@ namespace WebApp.Repositories
     /// </summary>
     public class DataBaseContext : DbContext
     {
+        private readonly IConfiguration config;
+
+        public DataBaseContext(IConfiguration config) => this.config = config;
+
         /// <summary>
         /// List of users
         /// </summary>
-        public DbSet<UserDto> Users { get; private set; }
+        public DbSet<UserDto> users { get; private set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlite("Filename=LocalDataBase.db");
+            var connectionString = config.GetValue<string>("POSTGRES_CONNECTION_STRING");
+            if(!string.IsNullOrEmpty(connectionString) )
+            {
+                optionsBuilder.UseNpgsql(connectionString);
+            }
         }
     }
 }

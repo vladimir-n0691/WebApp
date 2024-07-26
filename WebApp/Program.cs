@@ -1,8 +1,8 @@
 using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.Extensions.DependencyModel;
 using Microsoft.IdentityModel.Tokens;
 using System.ComponentModel;
+using System.Net;
 using System.Text;
 using WebApp.Dtos;
 using WebApp.Models;
@@ -18,11 +18,15 @@ namespace WebApp
             cfg.AllowNullCollections = true;
 
             cfg.CreateMap<UserDto, User>().ReverseMap();
+
         }));
 
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+
+            builder.WebHost.UseUrls("http://*:" + Environment.GetEnvironmentVariable("PORT"));
+
 
             var mapper = ConfigureMapper();
             builder.Services.AddSingleton(mapper);
