@@ -17,6 +17,20 @@ namespace WebApp.Controllers
             this.service = service;
         }
 
+        [HttpGet("getAll")]
+        public virtual IActionResult GetAll(int id)
+        {
+            try
+            {
+                var entities = service.GetAllAsync().GetAwaiter().GetResult();
+                return Ok(entities);
+            }
+            catch (Exception ex)
+            {
+                return Problem(ex.Message);
+            }
+        }
+
         [HttpGet("{id}")]
         public virtual IActionResult GetById(int id)
         {

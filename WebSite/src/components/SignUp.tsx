@@ -47,7 +47,7 @@ export default function SignUp() {
     let login = data.get('login')?.toString() ?? ""
     let password = data.get('password')?.toString() ?? ""
 
-    UsersApi.createUser({ id: 0, userRole: 0, firstName: firstName, lastName: lastName, 
+    UsersApi.create({ id: 0, userRole: 0, firstName: firstName, lastName: lastName, 
       company: company, email: email, login: login, password: password }).then(r => {
       navigate(`/signin`)
     })

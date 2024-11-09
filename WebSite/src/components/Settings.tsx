@@ -38,7 +38,7 @@ export const Settings = () => {
         password: pass
       }
 
-      UsersApi.updateUser(updateUser).then(result => {
+      UsersApi.update(updateUser).then(result => {
         if (result) {
         }
         else {
@@ -50,7 +50,7 @@ export const Settings = () => {
 
   useEffect(() => {
     if (userId != null) {
-      UsersApi.getUserById(Number(userId)).then(u => {
+      UsersApi.getById(Number(userId)).then(u => {
         if (u != null) {
           setFirstName(u.firstName)
           setlastName(u.lastName)

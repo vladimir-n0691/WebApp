@@ -15,6 +15,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { ACCESS_TOKEN_KEY } from '../common/constants';
 import UsersApi from '../api/UsersApi';
 import { useNavigate } from 'react-router-dom';
+import AuthApi from '../api/AuthApi';
 
 function Copyright(props: any) {
   return (
@@ -47,7 +48,7 @@ export default function SignIn() {
     console.log("login: " + login)
     console.log("password: " + password)
 
-    UsersApi.login(login!, password!).then(result => {
+    AuthApi.login(login!, password!).then(result => {
       if (result) {
         window.location.href = '/';
         //navigate(`/`)

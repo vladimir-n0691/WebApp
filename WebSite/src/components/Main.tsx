@@ -8,13 +8,14 @@ import { Route, Routes, useParams } from 'react-router-dom';
 import { Settings as SettingsView } from './Settings';
 import { MainToolbar } from './MainToolbar';
 import { Logout } from '@mui/icons-material';
+import Users from './users/Users';
 
 const defaultTheme = createTheme();
 
 export default function Main() {
   console.log("render Main")
 
-  if (2 > 1) {
+  /*if (2 > 1) {
     return (
       <div style={{
         display: 'flex', flexDirection: 'column', flexGrow: 1, width: '100%', height: '100%'
@@ -32,7 +33,7 @@ export default function Main() {
         }}>
         </div>
       </div>)
-  }
+  }*/
 
 
   return (
@@ -65,6 +66,13 @@ export default function Main() {
 
               </Container>
             } />
+
+            <Route path="/users" element={
+              <Container maxWidth={false} sx={{ mt: 1, mb: 1, flexGrow: 1 }}>
+                <Users />
+              </Container>
+            } />
+
             <Route path="/settings" element={<SettingsView />} />
           </Routes>
         </Box>

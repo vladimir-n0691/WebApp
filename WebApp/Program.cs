@@ -58,8 +58,23 @@ namespace WebApp
             });
 
             builder.Services.AddControllers();
+            // Add CORS services with a policy that allows all origins, methods, and headers
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAll",
+                    builder =>
+                    {
+                        builder.AllowAnyOrigin()    // Allows all origins
+                               .AllowAnyMethod()    // Allows all HTTP methods (GET, POST, PUT, DELETE, etc.)
+                               .AllowAnyHeader();   // Allows all headers
+                    });
+            });
+
 
             var app = builder.Build();
+
+            // Use the CORS policy globally
+            app.UseCors("AllowAll");
 
             app.UseDefaultFiles();
             app.UseStaticFiles();
@@ -72,6 +87,8 @@ namespace WebApp
 
             app.UseAuthentication(); // This need to be added	
             app.UseAuthorization();
+
+            app.UseCors();
 
             app.Run();
         }

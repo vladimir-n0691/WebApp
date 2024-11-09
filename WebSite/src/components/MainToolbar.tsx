@@ -12,12 +12,13 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import { Home, Logout, Settings } from '@mui/icons-material';
+import { Group, Home, Logout, Settings } from '@mui/icons-material';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import { ACCESS_TOKEN_KEY } from '../common/constants';
 import { AppState } from '../store';
 import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
+import AuthApi from '../api/AuthApi';
 
 
 const drawerWidth: number = 240;
@@ -79,9 +80,11 @@ export const MainToolbar = () => {
     const toggleDrawer = () => setOpen(!open)
 
     const handleHomeClick = () => navigate("/")
+    const handleUsersClick = () => navigate("/users")
     const handleSettingsClick = () => navigate("/settings")
+
     const handleLogoutClick = () => {
-        localStorage.removeItem(ACCESS_TOKEN_KEY);
+        AuthApi.logout()
         navigate("/signin")
     }
 
@@ -89,13 +92,19 @@ export const MainToolbar = () => {
         <React.Fragment>
             <ListItemButton onClick={handleHomeClick}>
                 <ListItemIcon>
-                    <Home />
+                    <Home style={{ color: 'gray' }} />
                 </ListItemIcon>
                 <ListItemText primary="Home" />
             </ListItemButton>
+            <ListItemButton onClick={handleUsersClick}>
+                <ListItemIcon>
+                    <Group style={{ color: 'gray' }} />
+                </ListItemIcon>
+                <ListItemText primary="Users" />
+            </ListItemButton>
             <ListItemButton onClick={handleSettingsClick}>
                 <ListItemIcon>
-                    <Settings />
+                    <Settings style={{ color: 'gray' }} />
                 </ListItemIcon>
                 <ListItemText primary="Settings" />
             </ListItemButton>
@@ -120,7 +129,7 @@ export const MainToolbar = () => {
                         ...(open && { display: 'none' }),
                     }}
                 >
-                    <MenuIcon />
+                    <MenuIcon style={{ color: 'gray' }} />
                 </IconButton>
 
                 <Typography
@@ -134,7 +143,7 @@ export const MainToolbar = () => {
                     </Typography>
 
                 <IconButton color="inherit" onClick={handleLogoutClick}>
-                    <Logout />
+                    <Logout style={{ color: 'gray' }} />
                 </IconButton>
             </Toolbar>
         </AppBar>
@@ -149,7 +158,7 @@ export const MainToolbar = () => {
                 }}
             >
                 <IconButton onClick={toggleDrawer}>
-                    <ChevronLeftIcon />
+                    <ChevronLeftIcon style={{ color: 'gray' }} />
                 </IconButton>
             </Toolbar>
             <Divider />
