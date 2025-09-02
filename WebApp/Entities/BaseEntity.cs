@@ -2,12 +2,12 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using WebApp.Common;
 
-namespace WebApp.Dtos
+namespace WebApp.Entities
 {
     /// <summary>
     /// Object for storage in the database
     /// </summary>
-    public abstract class BaseDto : IIdentifiable
+    public abstract class BaseEntity : IIdentifiable
     {
         /// <summary>
         /// Object identifier

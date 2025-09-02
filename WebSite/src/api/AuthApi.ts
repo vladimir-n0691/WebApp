@@ -1,8 +1,8 @@
-import { ACCESS_TOKEN_KEY, USER_ID_KEY } from "../common/constants";
+import { ACCESS_TOKEN_KEY, API_URL, USER_ID_KEY } from "../common/constants";
 
 export default class AuthApi {
     public static async login(login: string, password: string): Promise<boolean> {
-        const response = await fetch(`/api/auth/login?login=${login}&password=${password}`, {
+        const response = await fetch(`${API_URL}/api/auth/login?login=${login}&password=${password}`, {
           method: "GET",
           headers: { Accept: "application/json" },
         });

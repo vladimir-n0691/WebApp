@@ -1,8 +1,8 @@
-﻿using WebApp.Dtos;
+﻿using WebApp.Entities;
 
 namespace WebApp.Repositories
 {
-    public interface IUsersRepository : IBaseRepository<UserDto>
+    public interface IUsersRepository : IBaseRepository<UserEntity>
     {
     }
 }

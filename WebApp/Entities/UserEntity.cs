@@ -1,13 +1,13 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using WebApp.Common;
 
-namespace WebApp.Dtos
+namespace WebApp.Entities
 {
     [Table("users")]
-    public class UserDto : BaseDto
+    public class UserEntity : BaseEntity
     {
         [Column("user_role")]
-        public UserRole UserRole { get;set; }
+        public UserRole UserRole { get; set; }
 
         [Column("first_name")]
         public required string FirstName { get; set; }

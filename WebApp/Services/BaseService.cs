@@ -1,7 +1,7 @@
 ﻿using WebApp.Common;
 using WebApp.Repositories;
 using AutoMapper;
-using WebApp.Dtos;
+using WebApp.Entities;
 
 namespace WebApp.Services
 {
@@ -9,11 +9,11 @@ namespace WebApp.Services
     /// Base service contract
     /// </summary>
     /// <typeparam name="TData">Input/output data type</typeparam>
-    /// <typeparam name="TDto">Stored data type</typeparam>
+    /// <typeparam name="TEntity">Stored data type</typeparam>
     /// <typeparam name="TRepo">Repository data type</typeparam>
-    public class BaseService<TRepo, TDto, TData> : IBaseService<TData> where TData : IIdentifiable
-                                                                       where TDto : BaseDto
-                                                                       where TRepo : IBaseRepository<TDto>
+    public class BaseService<TRepo, TEntity, TData> : IBaseService<TData> where TData : IIdentifiable
+                                                                       where TEntity : BaseEntity
+                                                                       where TRepo : IBaseRepository<TEntity>
     {
         /// <summary>
         /// Repository
@@ -74,7 +74,7 @@ namespace WebApp.Services
         {
             try
             {
-                return Mapper.Map<TData>(await Repository.AddAsync(Mapper.Map<TDto>(item)));
+                return Mapper.Map<TData>(await Repository.AddAsync(Mapper.Map<TEntity>(item)));
             }
             catch
             {
@@ -89,7 +89,7 @@ namespace WebApp.Services
         {
             try
             {
-                return Mapper.Map<IEnumerable<TData>>(await Repository.AddRangeAsync(Mapper.Map<IEnumerable<TDto>>(items)));
+                return Mapper.Map<IEnumerable<TData>>(await Repository.AddRangeAsync(Mapper.Map<IEnumerable<TEntity>>(items)));
             }
             catch
             {
@@ -104,7 +104,7 @@ namespace WebApp.Services
         {
             try
             {
-                return Mapper.Map<TData>(await Repository.UpdateAsync(Mapper.Map<TDto>(item)));
+                return Mapper.Map<TData>(await Repository.UpdateAsync(Mapper.Map<TEntity>(item)));
             }
             catch
             {
@@ -119,7 +119,7 @@ namespace WebApp.Services
         {
             try
             {
-                return Mapper.Map<IEnumerable<TData>>(await Repository.UpdateRangeAsync(Mapper.Map<IEnumerable<TDto>>(items)));
+                return Mapper.Map<IEnumerable<TData>>(await Repository.UpdateRangeAsync(Mapper.Map<IEnumerable<TEntity>>(items)));
             }
             catch
             {
@@ -149,7 +149,7 @@ namespace WebApp.Services
         {
             try
             {
-                return Mapper.Map<TData>(await Repository.RemoveAsync(Mapper.Map<TDto>(item)));
+                return Mapper.Map<TData>(await Repository.RemoveAsync(Mapper.Map<TEntity>(item)));
             }
             catch
             {
@@ -164,7 +164,7 @@ namespace WebApp.Services
         {
             try
             {
-                return Mapper.Map<IEnumerable<TData>>(await Repository.RemoveRangeAsync(Mapper.Map<IEnumerable<TDto>>(items)));
+                return Mapper.Map<IEnumerable<TData>>(await Repository.RemoveRangeAsync(Mapper.Map<IEnumerable<TEntity>>(items)));
             }
             catch
             {

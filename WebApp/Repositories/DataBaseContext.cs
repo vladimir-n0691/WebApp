@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
-using WebApp.Dtos;
+using WebApp.Entities;
 
 namespace WebApp.Repositories
 {
@@ -16,7 +16,7 @@ namespace WebApp.Repositories
         /// <summary>
         /// List of users
         /// </summary>
-        public DbSet<UserDto> users { get; private set; }
+        public DbSet<UserEntity> users { get; private set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

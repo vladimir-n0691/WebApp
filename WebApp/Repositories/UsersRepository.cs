@@ -1,8 +1,8 @@
-﻿using WebApp.Dtos;
+﻿using WebApp.Entities;
 
 namespace WebApp.Repositories
 {
-    public class UsersRepository : BaseRepository<DataBaseContext, UserDto>, IUsersRepository
+    public class UsersRepository : BaseRepository<DataBaseContext, UserEntity>, IUsersRepository
     {
         public UsersRepository(DataBaseContext DbContext) : base(DbContext)
         {

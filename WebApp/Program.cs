@@ -4,7 +4,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.ComponentModel;
 using System.Net;
 using System.Text;
-using WebApp.Dtos;
+using WebApp.Entities;
 using WebApp.Models;
 using WebApp.Repositories;
 using WebApp.Services;
@@ -17,7 +17,7 @@ namespace WebApp
         {
             cfg.AllowNullCollections = true;
 
-            cfg.CreateMap<UserDto, User>().ReverseMap();
+            cfg.CreateMap<UserEntity, User>().ReverseMap();
 
         }));
 

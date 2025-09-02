@@ -5,69 +5,48 @@ namespace WebApp.Repositories
     /// <summary>
     /// Base repository contract
     /// </summary>
-    /// <typeparam name="TDto">Stored data type</typeparam>
-    public interface IBaseRepository<TDto> where TDto : IIdentifiable
+    /// <typeparam name="TEntity">Stored data type</typeparam>
+    public interface IBaseRepository<TEntity> where TEntity : IIdentifiable
     {
         /// <summary>
         /// Returns all objects
         /// </summary>
         /// <returns>List of objects</returns>
-        Task<IEnumerable<TDto>> GetAllAsync();
+        Task<IEnumerable<TEntity>> GetAllAsync();
 
         /// <summary>
         /// Returns an object by its id
         /// </summary>
         /// <param name="id">Object identifier</param>
         /// <returns>Object</returns>
-        Task<TDto> GetByIdAsync(int id);
+        Task<TEntity> GetByIdAsync(int id);
 
         /// <summary>
         /// Adds an object
         /// </summary>
         /// <param name="item">Object</param>
         /// <returns>Object</returns>
-        Task<TDto> AddAsync(TDto item);
-
-        /// <summary>
-        /// Adds a list of objects
-        /// </summary>
-        /// <param name="items">List of objects</param>
-        /// <returns>List of objects</returns>
-        Task<IEnumerable<TDto>> AddRangeAsync(IEnumerable<TDto> items);
+        Task<TEntity> AddAsync(TEntity item);
 
         /// <summary>
         /// Updates the object
         /// </summary>
         /// <param name="item">Object</param>
         /// <returns>Object</returns>
-        Task<TDto> UpdateAsync(TDto item);
-
-        /// <summary>
-        /// Refreshes the list of objects
-        /// </summary>
-        /// <param name="items">List of objects</param>
-        /// <returns>List of objects</returns>
-        Task<IEnumerable<TDto>> UpdateRangeAsync(IEnumerable<TDto> items);
+        Task<TEntity> UpdateAsync(TEntity item);
 
         /// <summary>
         /// Removes an object
         /// </summary>
         /// <param name="id">Object identifier</param>
         /// <returns>Object</returns>
-        Task<TDto> RemoveByIdAsync(int id);
+        Task<TEntity> RemoveByIdAsync(int id);
 
         /// <summary>
         /// Removes an object
         /// </summary>
         /// <param name="item">Object</param>
         /// <returns>Object</returns>
-        Task<TDto> RemoveAsync(TDto item);
-
-        /// <summary>
-        /// Removes the list object
-        /// </summary>
-        /// <param name="items">List of objects</param>
-        /// <returns>List of objects</returns>
-        Task<IEnumerable<TDto>> RemoveRangeAsync(IEnumerable<TDto> items);
+        Task<TEntity> RemoveAsync(TEntity item);
     }
 }
