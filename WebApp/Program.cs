@@ -1,37 +1,41 @@
 using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.ComponentModel;
 using System.Net;
 using System.Text;
-using WebApp.Entities;
-using WebApp.Models;
-using WebApp.Repositories;
-using WebApp.Services;
+using WebApp.BLL.Contracts;
+using WebApp.BLL.Models;
+using WebApp.BLL.Services;
+using WebApp.DAL.Contracts;
+using WebApp.DAL.Entities;
+using WebApp.DAL.NpgsqlRepositories;
 
 namespace WebApp
 {
     public class Program
     {
-        private static IMapper ConfigureMapper() => new Mapper(new MapperConfiguration(cfg =>
+        private static IMapper ConfigureMapper(ILoggerFactory loggerFactory) => new Mapper(new MapperConfiguration(cfg =>
         {
             cfg.AllowNullCollections = true;
 
-            cfg.CreateMap<UserEntity, User>().ReverseMap();
+            cfg.CreateMap<User, UserDto>().ReverseMap();
 
-        }));
+        }, loggerFactory));
 
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-
             builder.WebHost.UseUrls("http://*:" + Environment.GetEnvironmentVariable("PORT"));
 
-
-            var mapper = ConfigureMapper();
+            var loggerFactory = LoggerFactory.Create(builder => builder.AddConsole());
+            var mapper = ConfigureMapper(loggerFactory);
             builder.Services.AddSingleton(mapper);
 
-            builder.Services.AddDbContext<DataBaseContext>();
+            string connectionString = builder.Configuration.GetValue<string>("POSTGRES_CONNECTION_STRING");
+            builder.Services.AddDbContext<DataBaseContext>(options => options.UseNpgsql(connectionString));
 
             builder.Services.AddScoped<IUsersRepository, UsersRepository>();
             builder.Services.AddScoped<IUsersService, UsersService>();

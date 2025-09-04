@@ -1,7 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
-using WebApp.Common;
+﻿using WebApp.Core.Contracts;
 
-namespace WebApp.Models
+namespace WebApp.BLL.Models
 {
     /// <summary>
     /// Object for services

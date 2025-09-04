@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using WebApp.Common;
-using WebApp.Models;
-using WebApp.Services;
+using WebApp.BLL.Contracts;
+using WebApp.Core.Contracts;
+
 
 namespace WebApp.Controllers
 {

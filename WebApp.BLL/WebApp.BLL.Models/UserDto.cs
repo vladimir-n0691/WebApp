@@ -1,8 +1,8 @@
-﻿using WebApp.Common;
+﻿using WebApp.Core.Enums;
 
-namespace WebApp.Models
+namespace WebApp.BLL.Models
 {
-    public class User : BaseModel
+    public class UserDto : BaseModel
     {
         public UserRole UserRole { get; set; }
 

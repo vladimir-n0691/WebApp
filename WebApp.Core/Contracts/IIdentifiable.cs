@@ -1,4 +1,4 @@
-﻿namespace WebApp.Common
+﻿namespace WebApp.Core.Contracts
 {
     /// <summary>
     /// Identifiable object interface

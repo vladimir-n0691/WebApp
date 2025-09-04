@@ -1,6 +1,6 @@
-﻿using WebApp.Common;
+﻿using WebApp.Core.Contracts;
 
-namespace WebApp.Repositories
+namespace WebApp.DAL.Contracts
 {
     /// <summary>
     /// Base repository contract

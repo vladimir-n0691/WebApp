@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\WebApp.Core\WebApp.Core.csproj" />
+    <ProjectReference Include="..\WebApp.BLL.Models\WebApp.BLL.Models.csproj" />
+  </ItemGroup>
+
+</Project>

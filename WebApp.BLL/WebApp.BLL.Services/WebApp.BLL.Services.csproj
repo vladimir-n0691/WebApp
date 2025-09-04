@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="15.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\WebApp.DAL\WebApp.DAL.Contracts\WebApp.DAL.Contracts.csproj" />
+    <ProjectReference Include="..\..\WebApp.DAL\WebApp.DAL.Entities\WebApp.DAL.Entities.csproj" />
+    <ProjectReference Include="..\WebApp.BLL.Contracts\WebApp.BLL.Contracts.csproj" />
+  </ItemGroup>
+
+</Project>

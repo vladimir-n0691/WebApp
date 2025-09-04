@@ -1,9 +1,9 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using WebApp.Core.Contracts;
+using WebApp.DAL.Contracts;
+using WebApp.DAL.Entities;
 using Microsoft.EntityFrameworkCore;
-using WebApp.Common;
-using WebApp.Entities;
 
-namespace WebApp.Repositories
+namespace WebApp.DAL.NpgsqlRepositories
 {
     /// <summary>
     /// Base repository

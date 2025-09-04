@@ -1,4 +1,4 @@
-﻿namespace WebApp.Common
+﻿namespace WebApp.Core.Enums
 {
     public enum UserRole
     {

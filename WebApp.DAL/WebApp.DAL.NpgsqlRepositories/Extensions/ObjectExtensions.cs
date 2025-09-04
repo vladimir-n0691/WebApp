@@ -1,4 +1,4 @@
-﻿namespace WebApp.Common
+﻿namespace WebApp.DAL.NpgsqlRepositories
 {
     /// <summary>
     /// Object extensions

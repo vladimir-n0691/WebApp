@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using WebApp.Common;
+using WebApp.Core.Contracts;
 
-namespace WebApp.Entities
+namespace WebApp.DAL.Entities
 {
     /// <summary>
     /// Object for storage in the database

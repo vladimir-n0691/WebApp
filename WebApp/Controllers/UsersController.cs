@@ -3,30 +3,31 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using WebApp.Models;
-using WebApp.Repositories;
-using WebApp.Services;
+using WebApp.BLL.Contracts;
+using WebApp.BLL.Models;
+using WebApp.Core.Enums;
+
 
 namespace WebApp.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class UsersController : BaseController<IUsersService, User>
+    public class UsersController : BaseController<IUsersService, UserDto>
     {
         public UsersController(IUsersService usersService) : base(usersService) { }
 
         [HttpPost()]
-        public override IActionResult Create(User entity)
+        public override IActionResult Create(UserDto entity)
         {
             entity.Id = 0;
-            entity.UserRole = Common.UserRole.Client;
+            entity.UserRole = UserRole.Client;
             return base.Create(entity);
         }
 
         [HttpPatch()]
-        public override IActionResult Update(User entity)
+        public override IActionResult Update(UserDto entity)
         {
-            entity.UserRole = Common.UserRole.Client;
+            entity.UserRole = UserRole.Client;
             return base.Update(entity);
         }}
 }

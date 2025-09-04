@@ -1,8 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using WebApp.Common;
+using WebApp.BLL.Contracts;
+using WebApp.BLL.Models;
+using WebApp.Core.Enums;
 using WebApp.Helpers;
 using WebApp.Models;
-using WebApp.Services;
 
 namespace WebApp.Controllers
 {
@@ -24,7 +25,7 @@ namespace WebApp.Controllers
         public IActionResult Login(string login, string password)
         {
             var users = usersService.GetAllAsync().GetAwaiter().GetResult();
-            User? user = users.FirstOrDefault(x => x.Login == login && x.Password == password);
+            UserDto? user = users.FirstOrDefault(x => x.Login == login && x.Password == password);
             if (user == null)
             {
                 return BadRequest(new { errorText = "Invalid username or password." });

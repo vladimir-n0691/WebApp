@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations.Schema;
-using WebApp.Entities;
+using WebApp.DAL.Entities;
 
-namespace WebApp.Common
+namespace WebApp.DAL.NpgsqlRepositories
 {
     public static class Extensions
     {

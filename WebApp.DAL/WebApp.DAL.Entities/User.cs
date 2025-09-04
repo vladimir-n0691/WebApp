@@ -1,10 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
-using WebApp.Common;
+using WebApp.Core.Enums;
 
-namespace WebApp.Entities
+namespace WebApp.DAL.Entities
 {
     [Table("users")]
-    public class UserEntity : BaseEntity
+    public class User : BaseEntity
     {
         [Column("user_role")]
         public UserRole UserRole { get; set; }
