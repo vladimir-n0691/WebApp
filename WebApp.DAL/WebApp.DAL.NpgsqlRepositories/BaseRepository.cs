@@ -38,8 +38,10 @@ namespace WebApp.DAL.NpgsqlRepositories
         /// <summary>
         /// <see cref="IBaseRepository.GetByIdAsync(int)"/>
         /// </summary>
-        public virtual async Task<TEntity> GetByIdAsync(int id) => 
-            await DbContext.GetEntities<TEntity, TContext>().FirstOrDefaultAsync(i => i.Id == id);
+        public virtual async Task<TEntity> GetByIdAsync(int id)
+        {
+            return await DbContext.GetEntities<TEntity, TContext>().FirstOrDefaultAsync(i => i.Id == id);
+        }
 
 
         /// <summary>
